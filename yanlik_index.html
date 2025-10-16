@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang='tr'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>Yanlik 2.1 — Deneme Sürümü</title>
+  <meta name='description' content='Yanlik — Yapay Zekâ deneme sürümü. 500 özellikli, Türkiye'nin 81 ilini listeleyen, güzel ve havalı bir tek sayfa.' />
+  <link rel='icon' href='data:;base64,iVBORw0KGgo=' />
+  <style>
+    :root{--bg:#071021;--card:#0b1220;--muted:#9aa4b2;--accent:#7c3aed;--glass:rgba(255,255,255,0.04)}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:linear-gradient(180deg,#071021 0%, #0f1724 100%);color:#e6eef8}
+    a{color:inherit}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(90deg,#7c3aed,#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px}
+    h1{margin:0;font-size:20px}
+    .lead{color:var(--muted);font-size:13px}
+    nav a{color:var(--muted);text-decoration:none;margin-left:12px}
+    main{padding:18px 24px;display:grid;grid-template-columns:1fr 360px;gap:20px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:18px;box-shadow:0 6px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    .big{padding:24px}
+    .features{max-height:66vh;overflow:auto;padding-right:8px}
+    ol{margin:0;padding-left:18px}
+    li{margin:6px 0;color:#dbeafe}
+    footer{padding:18px 24px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+    .provinces{max-height:40vh;overflow:auto;padding:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border-radius:8px}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:var(--accent);color:white;text-decoration:none;font-weight:700}
+    .notfound{display:none;min-height:60vh;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:24px}
+    .show{display:flex}
+    .ascii{font-family:monospace;color:#9aa4b2;margin-top:14px;white-space:pre-wrap}
+    @media (max-width:920px){main{grid-template-columns:1fr;}.logo{width:44px;height:44px}}
+    .copyright{color:var(--muted);font-size:12px}
+    .search{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .meta-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .feature-title{font-weight:700;margin-bottom:8px}
+    .hint{color:var(--muted);font-size:13px}
+    .features::-webkit-scrollbar{width:10px}
+    .features::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.04);border-radius:8px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class='brand'>
+      <div class='logo'>Y</div>
+      <div>
+        <h1>Yanlik 2.1 — Deneme Sürümü</h1>
+        <div class='lead'>Yapay Zekâ tabanlı yardımcı — Hızlı, havalı ve denemeye hazır.</div>
+      </div>
+    </div>
+    <div class='right'>
+      <nav>
+        <a href='#features'>Özellikler</a>
+        <a href='#iller'>İller</a>
+        <a href='#about'>Hakkında</a>
+      </nav>
+      <a class='btn' href='https://instagram.com/mirsqdmmpr.gzli' target='_blank' rel='noreferrer'>Instagram: @mirsqdmmpr.gzli</a>
+    </div>
+  </header>
+  <main>
+    <section class='card big'>
+      <div class='meta-row' style='justify-content:space-between;align-items:center;margin-bottom:12px'>
+        <div>
+          <div class='feature-title'>500 havalı özellik — Kısa özet</div>
+          <div class='hint'>Aşağıda 500 maddelik özellik listesi yer alır. İstediğin maddeyi alıp geliştirebilirsin.</div>
+        </div>
+        <div style='text-align:right'>
+          <div class='hint'>Sürüm: <strong>2.1</strong> • Durum: Deneme</div>
+          <div class='hint'>Lisansa bak: Açık kaynak benzeri (saygı duyulmalı)</div>
+        </div>
+      </div>
+      <div id='features' class='features'>
+        <ol>
+          <li>Özellik 1: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #1.</li>
+          <li>Özellik 2: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #2.</li>
+          <li>Özellik 3: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #3.</li>
+          <li>Özellik 4: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #4.</li>
+          <li>Özellik 5: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #5.</li>
+          <li>Özellik 6: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #6.</li>
+          <li>Özellik 7: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #7.</li>
+          <li>Özellik 8: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #8.</li>
+          <li>Özellik 9: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #9.</li>
+          <li>Özellik 10: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #10.</li>
+          <li>Özellik 11: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #11.</li>
+          <li>Özellik 12: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #12.</li>
+          <li>Özellik 13: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #13.</li>
+          <li>Özellik 14: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #14.</li>
+          <li>Özellik 15: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #15.</li>
+          <li>Özellik 16: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #16.</li>
+          <li>Özellik 17: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #17.</li>
+          <li>Özellik 18: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #18.</li>
+          <li>Özellik 19: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #19.</li>
+          <li>Özellik 20: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #20.</li>
+          <li>Özellik 21: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #21.</li>
+          <li>Özellik 22: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #22.</li>
+          <li>Özellik 23: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #23.</li>
+          <li>Özellik 24: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #24.</li>
+          <li>Özellik 25: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #25.</li>
+          <li>Özellik 26: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #26.</li>
+          <li>Özellik 27: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #27.</li>
+          <li>Özellik 28: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #28.</li>
+          <li>Özellik 29: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #29.</li>
+          <li>Özellik 30: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #30.</li>
+          <li>Özellik 31: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #31.</li>
+          <li>Özellik 32: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #32.</li>
+          <li>Özellik 33: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #33.</li>
+          <li>Özellik 34: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #34.</li>
+          <li>Özellik 35: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #35.</li>
+          <li>Özellik 36: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #36.</li>
+          <li>Özellik 37: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #37.</li>
+          <li>Özellik 38: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #38.</li>
+          <li>Özellik 39: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #39.</li>
+          <li>Özellik 40: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #40.</li>
+          <li>Özellik 41: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #41.</li>
+          <li>Özellik 42: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #42.</li>
+          <li>Özellik 43: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #43.</li>
+          <li>Özellik 44: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #44.</li>
+          <li>Özellik 45: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #45.</li>
+          <li>Özellik 46: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #46.</li>
+          <li>Özellik 47: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #47.</li>
+          <li>Özellik 48: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #48.</li>
+          <li>Özellik 49: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #49.</li>
+          <li>Özellik 50: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #50.</li>
+          <li>Özellik 51: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #51.</li>
+          <li>Özellik 52: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #52.</li>
+          <li>Özellik 53: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #53.</li>
+          <li>Özellik 54: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #54.</li>
+          <li>Özellik 55: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #55.</li>
+          <li>Özellik 56: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #56.</li>
+          <li>Özellik 57: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #57.</li>
+          <li>Özellik 58: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #58.</li>
+          <li>Özellik 59: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #59.</li>
+          <li>Özellik 60: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #60.</li>
+          <li>Özellik 61: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #61.</li>
+          <li>Özellik 62: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #62.</li>
+          <li>Özellik 63: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #63.</li>
+          <li>Özellik 64: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #64.</li>
+          <li>Özellik 65: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #65.</li>
+          <li>Özellik 66: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #66.</li>
+          <li>Özellik 67: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #67.</li>
+          <li>Özellik 68: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #68.</li>
+          <li>Özellik 69: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #69.</li>
+          <li>Özellik 70: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #70.</li>
+          <li>Özellik 71: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #71.</li>
+          <li>Özellik 72: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #72.</li>
+          <li>Özellik 73: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #73.</li>
+          <li>Özellik 74: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #74.</li>
+          <li>Özellik 75: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #75.</li>
+          <li>Özellik 76: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #76.</li>
+          <li>Özellik 77: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #77.</li>
+          <li>Özellik 78: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #78.</li>
+          <li>Özellik 79: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #79.</li>
+          <li>Özellik 80: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #80.</li>
+          <li>Özellik 81: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #81.</li>
+          <li>Özellik 82: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #82.</li>
+          <li>Özellik 83: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #83.</li>
+          <li>Özellik 84: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #84.</li>
+          <li>Özellik 85: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #85.</li>
+          <li>Özellik 86: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #86.</li>
+          <li>Özellik 87: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #87.</li>
+          <li>Özellik 88: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #88.</li>
+          <li>Özellik 89: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #89.</li>
+          <li>Özellik 90: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #90.</li>
+          <li>Özellik 91: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #91.</li>
+          <li>Özellik 92: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #92.</li>
+          <li>Özellik 93: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #93.</li>
+          <li>Özellik 94: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #94.</li>
+          <li>Özellik 95: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #95.</li>
+          <li>Özellik 96: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #96.</li>
+          <li>Özellik 97: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #97.</li>
+          <li>Özellik 98: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #98.</li>
+          <li>Özellik 99: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #99.</li>
+          <li>Özellik 100: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #100.</li>
+          <li>Özellik 101: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #101.</li>
+          <li>Özellik 102: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #102.</li>
+          <li>Özellik 103: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #103.</li>
+          <li>Özellik 104: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #104.</li>
+          <li>Özellik 105: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #105.</li>
+          <li>Özellik 106: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #106.</li>
+          <li>Özellik 107: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #107.</li>
+          <li>Özellik 108: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #108.</li>
+          <li>Özellik 109: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #109.</li>
+          <li>Özellik 110: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #110.</li>
+          <li>Özellik 111: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #111.</li>
+          <li>Özellik 112: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #112.</li>
+          <li>Özellik 113: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #113.</li>
+          <li>Özellik 114: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #114.</li>
+          <li>Özellik 115: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #115.</li>
+          <li>Özellik 116: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #116.</li>
+          <li>Özellik 117: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #117.</li>
+          <li>Özellik 118: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #118.</li>
+          <li>Özellik 119: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #119.</li>
+          <li>Özellik 120: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #120.</li>
+          <li>Özellik 121: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #121.</li>
+          <li>Özellik 122: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #122.</li>
+          <li>Özellik 123: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #123.</li>
+          <li>Özellik 124: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #124.</li>
+          <li>Özellik 125: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #125.</li>
+          <li>Özellik 126: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #126.</li>
+          <li>Özellik 127: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #127.</li>
+          <li>Özellik 128: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #128.</li>
+          <li>Özellik 129: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #129.</li>
+          <li>Özellik 130: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #130.</li>
+          <li>Özellik 131: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #131.</li>
+          <li>Özellik 132: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #132.</li>
+          <li>Özellik 133: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #133.</li>
+          <li>Özellik 134: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #134.</li>
+          <li>Özellik 135: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #135.</li>
+          <li>Özellik 136: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #136.</li>
+          <li>Özellik 137: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #137.</li>
+          <li>Özellik 138: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #138.</li>
+          <li>Özellik 139: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #139.</li>
+          <li>Özellik 140: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #140.</li>
+          <li>Özellik 141: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #141.</li>
+          <li>Özellik 142: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #142.</li>
+          <li>Özellik 143: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #143.</li>
+          <li>Özellik 144: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #144.</li>
+          <li>Özellik 145: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #145.</li>
+          <li>Özellik 146: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #146.</li>
+          <li>Özellik 147: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #147.</li>
+          <li>Özellik 148: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #148.</li>
+          <li>Özellik 149: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #149.</li>
+          <li>Özellik 150: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #150.</li>
+          <li>Özellik 151: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #151.</li>
+          <li>Özellik 152: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #152.</li>
+          <li>Özellik 153: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #153.</li>
+          <li>Özellik 154: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #154.</li>
+          <li>Özellik 155: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #155.</li>
+          <li>Özellik 156: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #156.</li>
+          <li>Özellik 157: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #157.</li>
+          <li>Özellik 158: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #158.</li>
+          <li>Özellik 159: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #159.</li>
+          <li>Özellik 160: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #160.</li>
+          <li>Özellik 161: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #161.</li>
+          <li>Özellik 162: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #162.</li>
+          <li>Özellik 163: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #163.</li>
+          <li>Özellik 164: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #164.</li>
+          <li>Özellik 165: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #165.</li>
+          <li>Özellik 166: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #166.</li>
+          <li>Özellik 167: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #167.</li>
+          <li>Özellik 168: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #168.</li>
+          <li>Özellik 169: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #169.</li>
+          <li>Özellik 170: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #170.</li>
+          <li>Özellik 171: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #171.</li>
+          <li>Özellik 172: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #172.</li>
+          <li>Özellik 173: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #173.</li>
+          <li>Özellik 174: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #174.</li>
+          <li>Özellik 175: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #175.</li>
+          <li>Özellik 176: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #176.</li>
+          <li>Özellik 177: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #177.</li>
+          <li>Özellik 178: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #178.</li>
+          <li>Özellik 179: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #179.</li>
+          <li>Özellik 180: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #180.</li>
+          <li>Özellik 181: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #181.</li>
+          <li>Özellik 182: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #182.</li>
+          <li>Özellik 183: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #183.</li>
+          <li>Özellik 184: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #184.</li>
+          <li>Özellik 185: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #185.</li>
+          <li>Özellik 186: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #186.</li>
+          <li>Özellik 187: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #187.</li>
+          <li>Özellik 188: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #188.</li>
+          <li>Özellik 189: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #189.</li>
+          <li>Özellik 190: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #190.</li>
+          <li>Özellik 191: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #191.</li>
+          <li>Özellik 192: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #192.</li>
+          <li>Özellik 193: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #193.</li>
+          <li>Özellik 194: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #194.</li>
+          <li>Özellik 195: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #195.</li>
+          <li>Özellik 196: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #196.</li>
+          <li>Özellik 197: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #197.</li>
+          <li>Özellik 198: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #198.</li>
+          <li>Özellik 199: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #199.</li>
+          <li>Özellik 200: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #200.</li>
+          <li>Özellik 201: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #201.</li>
+          <li>Özellik 202: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #202.</li>
+          <li>Özellik 203: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #203.</li>
+          <li>Özellik 204: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #204.</li>
+          <li>Özellik 205: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #205.</li>
+          <li>Özellik 206: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #206.</li>
+          <li>Özellik 207: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #207.</li>
+          <li>Özellik 208: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #208.</li>
+          <li>Özellik 209: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #209.</li>
+          <li>Özellik 210: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #210.</li>
+          <li>Özellik 211: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #211.</li>
+          <li>Özellik 212: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #212.</li>
+          <li>Özellik 213: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #213.</li>
+          <li>Özellik 214: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #214.</li>
+          <li>Özellik 215: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #215.</li>
+          <li>Özellik 216: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #216.</li>
+          <li>Özellik 217: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #217.</li>
+          <li>Özellik 218: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #218.</li>
+          <li>Özellik 219: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #219.</li>
+          <li>Özellik 220: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #220.</li>
+          <li>Özellik 221: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #221.</li>
+          <li>Özellik 222: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #222.</li>
+          <li>Özellik 223: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #223.</li>
+          <li>Özellik 224: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #224.</li>
+          <li>Özellik 225: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #225.</li>
+          <li>Özellik 226: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #226.</li>
+          <li>Özellik 227: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #227.</li>
+          <li>Özellik 228: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #228.</li>
+          <li>Özellik 229: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #229.</li>
+          <li>Özellik 230: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #230.</li>
+          <li>Özellik 231: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #231.</li>
+          <li>Özellik 232: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #232.</li>
+          <li>Özellik 233: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #233.</li>
+          <li>Özellik 234: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #234.</li>
+          <li>Özellik 235: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #235.</li>
+          <li>Özellik 236: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #236.</li>
+          <li>Özellik 237: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #237.</li>
+          <li>Özellik 238: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #238.</li>
+          <li>Özellik 239: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #239.</li>
+          <li>Özellik 240: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #240.</li>
+          <li>Özellik 241: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #241.</li>
+          <li>Özellik 242: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #242.</li>
+          <li>Özellik 243: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #243.</li>
+          <li>Özellik 244: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #244.</li>
+          <li>Özellik 245: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #245.</li>
+          <li>Özellik 246: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #246.</li>
+          <li>Özellik 247: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #247.</li>
+          <li>Özellik 248: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #248.</li>
+          <li>Özellik 249: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #249.</li>
+          <li>Özellik 250: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #250.</li>
+          <li>Özellik 251: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #251.</li>
+          <li>Özellik 252: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #252.</li>
+          <li>Özellik 253: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #253.</li>
+          <li>Özellik 254: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #254.</li>
+          <li>Özellik 255: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #255.</li>
+          <li>Özellik 256: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #256.</li>
+          <li>Özellik 257: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #257.</li>
+          <li>Özellik 258: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #258.</li>
+          <li>Özellik 259: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #259.</li>
+          <li>Özellik 260: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #260.</li>
+          <li>Özellik 261: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #261.</li>
+          <li>Özellik 262: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #262.</li>
+          <li>Özellik 263: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #263.</li>
+          <li>Özellik 264: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #264.</li>
+          <li>Özellik 265: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #265.</li>
+          <li>Özellik 266: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #266.</li>
+          <li>Özellik 267: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #267.</li>
+          <li>Özellik 268: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #268.</li>
+          <li>Özellik 269: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #269.</li>
+          <li>Özellik 270: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #270.</li>
+          <li>Özellik 271: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #271.</li>
+          <li>Özellik 272: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #272.</li>
+          <li>Özellik 273: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #273.</li>
+          <li>Özellik 274: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #274.</li>
+          <li>Özellik 275: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #275.</li>
+          <li>Özellik 276: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #276.</li>
+          <li>Özellik 277: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #277.</li>
+          <li>Özellik 278: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #278.</li>
+          <li>Özellik 279: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #279.</li>
+          <li>Özellik 280: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #280.</li>
+          <li>Özellik 281: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #281.</li>
+          <li>Özellik 282: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #282.</li>
+          <li>Özellik 283: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #283.</li>
+          <li>Özellik 284: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #284.</li>
+          <li>Özellik 285: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #285.</li>
+          <li>Özellik 286: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #286.</li>
+          <li>Özellik 287: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #287.</li>
+          <li>Özellik 288: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #288.</li>
+          <li>Özellik 289: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #289.</li>
+          <li>Özellik 290: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #290.</li>
+          <li>Özellik 291: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #291.</li>
+          <li>Özellik 292: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #292.</li>
+          <li>Özellik 293: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #293.</li>
+          <li>Özellik 294: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #294.</li>
+          <li>Özellik 295: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #295.</li>
+          <li>Özellik 296: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #296.</li>
+          <li>Özellik 297: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #297.</li>
+          <li>Özellik 298: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #298.</li>
+          <li>Özellik 299: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #299.</li>
+          <li>Özellik 300: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #300.</li>
+          <li>Özellik 301: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #301.</li>
+          <li>Özellik 302: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #302.</li>
+          <li>Özellik 303: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #303.</li>
+          <li>Özellik 304: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #304.</li>
+          <li>Özellik 305: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #305.</li>
+          <li>Özellik 306: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #306.</li>
+          <li>Özellik 307: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #307.</li>
+          <li>Özellik 308: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #308.</li>
+          <li>Özellik 309: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #309.</li>
+          <li>Özellik 310: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #310.</li>
+          <li>Özellik 311: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #311.</li>
+          <li>Özellik 312: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #312.</li>
+          <li>Özellik 313: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #313.</li>
+          <li>Özellik 314: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #314.</li>
+          <li>Özellik 315: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #315.</li>
+          <li>Özellik 316: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #316.</li>
+          <li>Özellik 317: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #317.</li>
+          <li>Özellik 318: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #318.</li>
+          <li>Özellik 319: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #319.</li>
+          <li>Özellik 320: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #320.</li>
+          <li>Özellik 321: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #321.</li>
+          <li>Özellik 322: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #322.</li>
+          <li>Özellik 323: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #323.</li>
+          <li>Özellik 324: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #324.</li>
+          <li>Özellik 325: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #325.</li>
+          <li>Özellik 326: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #326.</li>
+          <li>Özellik 327: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #327.</li>
+          <li>Özellik 328: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #328.</li>
+          <li>Özellik 329: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #329.</li>
+          <li>Özellik 330: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #330.</li>
+          <li>Özellik 331: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #331.</li>
+          <li>Özellik 332: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #332.</li>
+          <li>Özellik 333: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #333.</li>
+          <li>Özellik 334: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #334.</li>
+          <li>Özellik 335: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #335.</li>
+          <li>Özellik 336: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #336.</li>
+          <li>Özellik 337: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #337.</li>
+          <li>Özellik 338: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #338.</li>
+          <li>Özellik 339: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #339.</li>
+          <li>Özellik 340: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #340.</li>
+          <li>Özellik 341: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #341.</li>
+          <li>Özellik 342: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #342.</li>
+          <li>Özellik 343: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #343.</li>
+          <li>Özellik 344: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #344.</li>
+          <li>Özellik 345: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #345.</li>
+          <li>Özellik 346: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #346.</li>
+          <li>Özellik 347: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #347.</li>
+          <li>Özellik 348: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #348.</li>
+          <li>Özellik 349: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #349.</li>
+          <li>Özellik 350: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #350.</li>
+          <li>Özellik 351: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #351.</li>
+          <li>Özellik 352: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #352.</li>
+          <li>Özellik 353: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #353.</li>
+          <li>Özellik 354: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #354.</li>
+          <li>Özellik 355: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #355.</li>
+          <li>Özellik 356: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #356.</li>
+          <li>Özellik 357: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #357.</li>
+          <li>Özellik 358: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #358.</li>
+          <li>Özellik 359: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #359.</li>
+          <li>Özellik 360: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #360.</li>
+          <li>Özellik 361: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #361.</li>
+          <li>Özellik 362: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #362.</li>
+          <li>Özellik 363: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #363.</li>
+          <li>Özellik 364: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #364.</li>
+          <li>Özellik 365: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #365.</li>
+          <li>Özellik 366: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #366.</li>
+          <li>Özellik 367: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #367.</li>
+          <li>Özellik 368: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #368.</li>
+          <li>Özellik 369: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #369.</li>
+          <li>Özellik 370: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #370.</li>
+          <li>Özellik 371: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #371.</li>
+          <li>Özellik 372: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #372.</li>
+          <li>Özellik 373: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #373.</li>
+          <li>Özellik 374: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #374.</li>
+          <li>Özellik 375: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #375.</li>
+          <li>Özellik 376: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #376.</li>
+          <li>Özellik 377: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #377.</li>
+          <li>Özellik 378: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #378.</li>
+          <li>Özellik 379: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #379.</li>
+          <li>Özellik 380: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #380.</li>
+          <li>Özellik 381: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #381.</li>
+          <li>Özellik 382: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #382.</li>
+          <li>Özellik 383: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #383.</li>
+          <li>Özellik 384: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #384.</li>
+          <li>Özellik 385: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #385.</li>
+          <li>Özellik 386: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #386.</li>
+          <li>Özellik 387: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #387.</li>
+          <li>Özellik 388: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #388.</li>
+          <li>Özellik 389: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #389.</li>
+          <li>Özellik 390: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #390.</li>
+          <li>Özellik 391: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #391.</li>
+          <li>Özellik 392: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #392.</li>
+          <li>Özellik 393: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #393.</li>
+          <li>Özellik 394: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #394.</li>
+          <li>Özellik 395: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #395.</li>
+          <li>Özellik 396: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #396.</li>
+          <li>Özellik 397: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #397.</li>
+          <li>Özellik 398: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #398.</li>
+          <li>Özellik 399: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #399.</li>
+          <li>Özellik 400: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #400.</li>
+          <li>Özellik 401: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #401.</li>
+          <li>Özellik 402: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #402.</li>
+          <li>Özellik 403: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #403.</li>
+          <li>Özellik 404: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #404.</li>
+          <li>Özellik 405: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #405.</li>
+          <li>Özellik 406: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #406.</li>
+          <li>Özellik 407: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #407.</li>
+          <li>Özellik 408: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #408.</li>
+          <li>Özellik 409: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #409.</li>
+          <li>Özellik 410: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #410.</li>
+          <li>Özellik 411: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #411.</li>
+          <li>Özellik 412: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #412.</li>
+          <li>Özellik 413: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #413.</li>
+          <li>Özellik 414: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #414.</li>
+          <li>Özellik 415: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #415.</li>
+          <li>Özellik 416: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #416.</li>
+          <li>Özellik 417: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #417.</li>
+          <li>Özellik 418: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #418.</li>
+          <li>Özellik 419: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #419.</li>
+          <li>Özellik 420: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #420.</li>
+          <li>Özellik 421: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #421.</li>
+          <li>Özellik 422: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #422.</li>
+          <li>Özellik 423: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #423.</li>
+          <li>Özellik 424: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #424.</li>
+          <li>Özellik 425: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #425.</li>
+          <li>Özellik 426: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #426.</li>
+          <li>Özellik 427: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #427.</li>
+          <li>Özellik 428: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #428.</li>
+          <li>Özellik 429: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #429.</li>
+          <li>Özellik 430: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #430.</li>
+          <li>Özellik 431: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #431.</li>
+          <li>Özellik 432: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #432.</li>
+          <li>Özellik 433: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #433.</li>
+          <li>Özellik 434: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #434.</li>
+          <li>Özellik 435: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #435.</li>
+          <li>Özellik 436: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #436.</li>
+          <li>Özellik 437: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #437.</li>
+          <li>Özellik 438: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #438.</li>
+          <li>Özellik 439: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #439.</li>
+          <li>Özellik 440: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #440.</li>
+          <li>Özellik 441: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #441.</li>
+          <li>Özellik 442: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #442.</li>
+          <li>Özellik 443: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #443.</li>
+          <li>Özellik 444: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #444.</li>
+          <li>Özellik 445: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #445.</li>
+          <li>Özellik 446: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #446.</li>
+          <li>Özellik 447: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #447.</li>
+          <li>Özellik 448: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #448.</li>
+          <li>Özellik 449: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #449.</li>
+          <li>Özellik 450: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #450.</li>
+          <li>Özellik 451: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #451.</li>
+          <li>Özellik 452: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #452.</li>
+          <li>Özellik 453: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #453.</li>
+          <li>Özellik 454: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #454.</li>
+          <li>Özellik 455: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #455.</li>
+          <li>Özellik 456: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #456.</li>
+          <li>Özellik 457: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #457.</li>
+          <li>Özellik 458: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #458.</li>
+          <li>Özellik 459: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #459.</li>
+          <li>Özellik 460: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #460.</li>
+          <li>Özellik 461: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #461.</li>
+          <li>Özellik 462: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #462.</li>
+          <li>Özellik 463: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #463.</li>
+          <li>Özellik 464: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #464.</li>
+          <li>Özellik 465: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #465.</li>
+          <li>Özellik 466: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #466.</li>
+          <li>Özellik 467: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #467.</li>
+          <li>Özellik 468: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #468.</li>
+          <li>Özellik 469: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #469.</li>
+          <li>Özellik 470: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #470.</li>
+          <li>Özellik 471: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #471.</li>
+          <li>Özellik 472: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #472.</li>
+          <li>Özellik 473: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #473.</li>
+          <li>Özellik 474: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #474.</li>
+          <li>Özellik 475: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #475.</li>
+          <li>Özellik 476: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #476.</li>
+          <li>Özellik 477: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #477.</li>
+          <li>Özellik 478: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #478.</li>
+          <li>Özellik 479: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #479.</li>
+          <li>Özellik 480: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #480.</li>
+          <li>Özellik 481: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #481.</li>
+          <li>Özellik 482: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #482.</li>
+          <li>Özellik 483: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #483.</li>
+          <li>Özellik 484: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #484.</li>
+          <li>Özellik 485: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #485.</li>
+          <li>Özellik 486: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #486.</li>
+          <li>Özellik 487: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #487.</li>
+          <li>Özellik 488: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #488.</li>
+          <li>Özellik 489: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #489.</li>
+          <li>Özellik 490: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #490.</li>
+          <li>Özellik 491: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #491.</li>
+          <li>Özellik 492: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #492.</li>
+          <li>Özellik 493: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #493.</li>
+          <li>Özellik 494: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #494.</li>
+          <li>Özellik 495: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #495.</li>
+          <li>Özellik 496: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #496.</li>
+          <li>Özellik 497: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #497.</li>
+          <li>Özellik 498: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #498.</li>
+          <li>Özellik 499: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #499.</li>
+          <li>Özellik 500: Yanlık'ın havalı ve kullanışlı fonksiyonu — kısa açıklama #500.</li>
+        </ol>
+      </div>
+    </section>
+    <aside class='card'>
+      <div class='feature-title'>Türkiye'nin 81 İli</div>
+      <div id='iller' class='provinces'>
+        <ul>
+          <li>Adana</li>
+          <li>Adıyaman</li>
+          <li>Afyonkarahisar</li>
+          <li>Ağrı</li>
+          <li>Aksaray</li>
+          <li>Amasya</li>
+          <li>Ankara</li>
+          <li>Antalya</li>
+          <li>Ardahan</li>
+          <li>Artvin</li>
+          <li>Aydın</li>
+          <li>Balıkesir</li>
+          <li>Bartın</li>
+          <li>Batman</li>
+          <li>Bayburt</li>
+          <li>Bilecik</li>
+          <li>Bingöl</li>
+          <li>Bitlis</li>
+          <li>Bolu</li>
+          <li>Burdur</li>
+          <li>Bursa</li>
+          <li>Çanakkale</li>
+          <li>Çankırı</li>
+          <li>Çorum</li>
+          <li>Denizli</li>
+          <li>Diyarbakır</li>
+          <li>Düzce</li>
+          <li>Edirne</li>
+          <li>Elazığ</li>
+          <li>Erzincan</li>
+          <li>Erzurum</li>
+          <li>Eskişehir</li>
+          <li>Gaziantep</li>
+          <li>Giresun</li>
+          <li>Gümüşhane</li>
+          <li>Hakkâri</li>
+          <li>Hatay</li>
+          <li>Iğdır</li>
+          <li>Isparta</li>
+          <li>İstanbul</li>
+          <li>İzmir</li>
+          <li>Kahramanmaraş</li>
+          <li>Karabük</li>
+          <li>Karaman</li>
+          <li>Kars</li>
+          <li>Kastamonu</li>
+          <li>Kayseri</li>
+          <li>Kırıkkale</li>
+          <li>Kırklareli</li>
+          <li>Kırşehir</li>
+          <li>Kilis</li>
+          <li>Kocaeli</li>
+          <li>Konya</li>
+          <li>Kütahya</li>
+          <li>Malatya</li>
+          <li>Manisa</li>
+          <li>Mardin</li>
+          <li>Mersin</li>
+          <li>Muğla</li>
+          <li>Muş</li>
+          <li>Nevşehir</li>
+          <li>Niğde</li>
+          <li>Ordu</li>
+          <li>Osmaniye</li>
+          <li>Rize</li>
+          <li>Sakarya</li>
+          <li>Samsun</li>
+          <li>Siirt</li>
+          <li>Sinop</li>
+          <li>Sivas</li>
+          <li>Şanlıurfa</li>
+          <li>Şırnak</li>
+          <li>Tekirdağ</li>
+          <li>Tokat</li>
+          <li>Trabzon</li>
+          <li>Tunceli</li>
+          <li>Uşak</li>
+          <li>Van</li>
+          <li>Yalova</li>
+          <li>Yozgat</li>
+          <li>Zonguldak</li>
+        </ul>
+      </div>
+      <div style='margin-top:12px'>
+        <a class='btn' href='#about'>Daha fazla</a>
+      </div>
+    </aside>
+  </main>
+
+  <!-- 404 Bölümü (arama parametresine göre göster) -->
+  <div id='notfound' class='notfound' aria-hidden='true'>
+    <h2>404 — Sayfa Bulunamadı</h2>
+    <p class='hint'>Üzgünüm knk, aradığın şey burada değil. Ama merak etme, geri dönebiliriz.</p>
+    <div class='ascii'>  __   __   __   __
+ /  \ /  \ /  \ /  \
+| Y  | A  | N  | L  |
+ \__/ \__/ \__/ \__/
+</div>
+    <p class='hint'>Anasayfaya dönmek için <a href='./'>tıkla</a>.</p>
+  </div>
+
+  <section id='about' style='padding:24px'>
+    <div class='card'>
+      <h3>Hakkında — Yanlik</h3>
+      <p>Yanlik, Mirsad için hazırlanan deneme sürümüdür. Bu sayfa örnek bir dağıtım ve gösterim amaçlıdır. Kodlar kolayca özelleştirilebilir.</p>
+      <p class='hint'>İletişim: <a href='https://instagram.com/mirsqdmmpr.gzli' target='_blank' rel='noreferrer'>@mirsqdmmpr.gzli</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class='copyright'>© Yanlik 2025 — Tüm hakları saklıdır. Hazırlayan: mirsqdmmdeb</div>
+    <div class='hint'>Bu proje ücretsizdir; ticari kullanım için izin alın.</div>
+  </footer>
+
+  <script>
+    // Basit: URL hash '404' gelirse 404 bölümünü göster
+html_lines.append("    (function(){")
+    const hash = location.hash.replace('#','');
+    if(hash === '404'){
+      document.getElementById('notfound').classList.add('show');
+      document.getElementById('notfound').setAttribute('aria-hidden','false');
+    }
+    // İnteraktif küçük yardım: özelliklere tıklayınca kısa alert göster (örnek)
+
+    document.querySelectorAll('#features li').forEach((li,i)=>{
+      li.addEventListener('click',()=>{
+        alert('Özellik ' + (i+1) + ' seçildi — geliştirilebilir.');
+      })
+    })
+  })();
+  </script>
+</body>
+</html>
