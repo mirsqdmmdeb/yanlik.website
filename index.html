@@ -1,127 +1,536 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yanlik 2.1</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Yanlik 2.3 — Sohbet</title>
 <style>
-body { margin:0; font-family:'Arial',sans-serif; background-color:#111; color:#eee; display:flex; flex-direction:column; min-height:100vh;}
-header { background-color:#000; padding:20px; text-align:center; border-bottom:2px solid #eee;}
-header h1{margin:0; font-size:2.5em; letter-spacing:2px; color:#33ffff;}
-main{flex:1; padding:20px; text-align:center;}
-.chat-box{background-color:#222; padding:20px; margin:20px auto; max-width:600px; border-radius:10px; border:2px solid #33ffff; text-align:left; height:400px; overflow-y:auto;}
-.chat-box p{margin:5px 0; padding:10px; border-radius:12px; word-wrap:break-word; opacity:0; transform:translateY(20px); animation:fadeIn 0.5s forwards; max-width:80%;}
-@keyframes fadeIn{to{opacity:1; transform:translateY(0);}}
-.user-msg{background:linear-gradient(90deg,#4a4a4a,#555); text-align:right; color:#fff; margin-left:auto;}
-.bot-msg{background:linear-gradient(90deg,#335555,#33aaaa); color:#fff; margin-right:auto;}
-.bot-msg.thinking{font-style:italic; color:#888; background:linear-gradient(90deg,#555555,#777777);}
-input[type="text"]{width:70%; padding:10px; border-radius:8px; border:none; margin-right:10px;}
-button{padding:10px 15px; border-radius:8px; border:none; background-color:#555; color:#eee; cursor:pointer; transition:0.3s;}
-button:hover{background-color:#777;}
-.instagram-link{display:inline-block; margin-top:20px; padding:10px 20px; background-color:#222; color:#eee; text-decoration:none; border-radius:8px; transition:all 0.3s ease;}
-.instagram-link:hover{background-color:#33ffff; color:#000;}
-.oops{margin-top:50px; font-size:2em; color:#ff5555;}
-.oops p{font-size:1em; color:#ccc;}
-footer{background-color:#000; padding:20px; text-align:center; border-top:2px solid #33ffff; font-size:0.85em; color:#aaa;}
+  :root{
+    --bg:#ffffff; --text:#222; --accent:#0077cc; --bubble-user:#0077cc; --bubble-bot:#e0e0e0;
+  }
+  /* Neon Mavi */
+  .theme-neon { --bg:#03061a; --text:#e6fbff; --accent:#33f0ff; --bubble-user:#33f0ff; --bubble-bot:#081223; }
+  /* Matrix */
+  .theme-matrix { --bg:#04120b; --text:#a8f0a8; --accent:#39ff14; --bubble-user:#39ff14; --bubble-bot:#062413; }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:var(--bg); color:var(--text); min-height:100vh; display:flex; flex-direction:column;
+  }
+  header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(0,0,0,0.06);}
+  header h1{margin:0;font-size:18px;color:var(--accent)}
+  .controls{display:flex;gap:8px;align-items:center}
+  .btn {background:var(--accent); color:#fff; border:none;padding:8px 10px;border-radius:8px;cursor:pointer}
+  .small {padding:6px 8px;font-size:13px}
+  main{flex:1;display:flex;gap:16px;padding:18px;align-items:flex-start; justify-content:center}
+
+  /* Chat column */
+  .col-chat{width:100%;max-width:780px;display:flex;flex-direction:column;gap:12px}
+  .chat-box{
+    background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
+    border-radius:14px;padding:16px;height:62vh; overflow:auto;border:1px solid rgba(0,0,0,0.06);
+  }
+  .msg{display:inline-block;padding:10px 12px;border-radius:12px;margin:8px 0;opacity:0;transform:translateY(10px);animation:fadeIn .35s forwards}
+  .msg.user{background:var(--bubble-user);color:#fff;margin-left:auto; max-width:78%;}
+  .msg.bot{background:var(--bubble-bot);color:var(--text);margin-right:auto; max-width:78%;}
+  .msg.thinking{font-style:italic;color:gray;background:linear-gradient(90deg,#eee,#ddd);}
+
+  @keyframes fadeIn{to{opacity:1;transform:none}}
+  /* input */
+  .composer{display:flex;gap:8px;align-items:center}
+  .composer input{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);outline:none}
+  .composer .send{background:var(--accent);border-radius:10px;color:#fff;padding:10px 12px;border:none;cursor:pointer}
+  .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
+
+  /* side panel */
+  .panel{width:320px;max-width:40vw;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:linear-gradient(180deg, rgba(0,0,0,0.02), transparent);height:62vh;overflow:auto}
+  .panel h3{margin:8px 0}
+  .avatar-grid{display:flex;gap:8px;flex-wrap:wrap}
+  .avatar{cursor:pointer;padding:8px;border-radius:8px;border:1px solid transparent}
+  .avatar.sel{box-shadow:0 0 0 2px var(--accent) inset;border-radius:8px}
+  .theme-options{display:flex;gap:8px}
+  .theme-option{padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);cursor:pointer}
+
+  .toggle{display:inline-flex;align-items:center;gap:8px}
+  .mood-bar{display:flex;gap:6px;margin-top:8px}
+  .mood-pill{padding:6px 8px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);font-size:13px;cursor:pointer}
+  .memory-list{max-height:120px;overflow:auto;padding:6px;border-radius:8px;background:rgba(0,0,0,0.02)}
+  .footer-small{font-size:12px;color:rgba(0,0,0,0.5);margin-top:8px}
+
+  /* oops (404 on blur) */
+  .oops{
+    position:fixed;inset:0;background:rgba(255,255,255,0.98);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:2000;
+    transition:opacity .4s;opacity:0;pointer-events:none;
+  }
+  .oops.visible{opacity:1;pointer-events:all}
+  .oops h2{font-size:28px;margin:0;color:#ff5555}
+  /* small screens */
+  @media (max-width:900px){
+    main{flex-direction:column;padding:12px}
+    .panel{width:100%;max-width:100%}
+    .col-chat{max-width:100%}
+    .chat-box{height:54vh}
+  }
 </style>
 </head>
 <body>
 <header>
-<h1>Yanlik 2.1</h1>
+  <h1>Yanlik 2.3</h1>
+  <div class="controls">
+    <button class="btn small" id="mem-btn" title="Hafıza">🧠 Hafıza</button>
+    <button class="btn small" id="settings-btn" title="Ayarlar">⚙️ Ayarlar</button>
+  </div>
 </header>
+
 <main>
-<div class="chat-box" id="chat-box">
-<p class="bot-msg">Merhaba! Ben Yanlik. Sana nasıl yardımcı olabilirim?</p>
-</div>
-<div>
-<input type="text" id="user-input" placeholder="Mesajını yaz...">
-<button onclick="sendMessage()">Gönder</button>
-</div>
-<a class="instagram-link" href="https://instagram.com/mirsqdmmpr.gzli" target="_blank">Instagram</a>
-<div class="oops">
-<p>Oops! Sayfa bulunamadı 😅</p>
-<p>Aradığın içerik burada yok, ama yine de keşfetmeye devam et!</p>
-</div>
+  <section class="col-chat">
+    <div class="chat-box" id="chat-box" aria-live="polite"></div>
+
+    <div class="composer" style="margin-top:6px;">
+      <input id="user-input" placeholder="Mesajını yaz... (gizli komutlar: /darkmode /neon /matrix /clear /about /zar /rastgelefikir /bilgi /energy)" autocomplete="off" />
+      <button class="send" id="send-btn">Gönder</button>
+    </div>
+
+    <div class="meta">
+      <div class="footer-small" id="welcome-line">Henüz giriş yapılmadı.</div>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+        <button class="btn small" id="mute-btn">🔊 Ses: Aç</button>
+        <button class="btn small" id="reset-btn">🧹 Hafızayı Sıfırla</button>
+        <button class="btn small" id="change-btn">🔁 Kullanıcı Değiştir</button>
+      </div>
+    </div>
+  </section>
+
+  <aside class="panel" id="panel">
+    <h3>Profil & Tema</h3>
+    <div id="login-screen">
+      <label>Adın</label><br>
+      <input id="name-input" placeholder="Adın..." style="width:100%;padding:8px;margin:6px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06)"/>
+      <label>Avatar (emoji)</label>
+      <div class="avatar-grid" id="avatar-grid" style="margin-top:8px">
+        <!-- avatars appended by JS -->
+      </div>
+
+      <label style="margin-top:10px">Kısa Bio</label>
+      <input id="bio-input" placeholder="Kısa bir şey..." style="width:100%;padding:8px;margin:6px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn" id="start-btn">Başla</button>
+        <button class="btn" id="guest-btn" style="background:#666">Misafir</button>
+      </div>
+    </div>
+
+    <div id="settings" style="display:none">
+      <h3>Görünüm</h3>
+      <div class="theme-options">
+        <div class="theme-option" data-theme="light">☁️ Beyaz</div>
+        <div class="theme-option" data-theme="neon">🌌 Neon</div>
+        <div class="theme-option" data-theme="matrix">🧠 Matrix</div>
+      </div>
+
+      <h3 style="margin-top:12px">Ruh Hali (Mood)</h3>
+      <div id="mood-display" class="mood-bar"></div>
+      <div class="footer-small">Yanlik her 24 saatte bir rastgele ruh halinde olur. İstersen el ile seçebilirsin.</div>
+
+      <h3 style="margin-top:12px">Diğer</h3>
+      <div style="display:flex;gap:8px;align-items:center;margin-top:6px">
+        <label class="toggle"><input type="checkbox" id="sound-toggle" checked> Ses</label>
+        <label class="toggle"><input type="checkbox" id="typing-toggle" checked> Yazma efekti</label>
+      </div>
+
+      <h3 style="margin-top:12px">Son 5 Hatırlanan</h3>
+      <div class="memory-list" id="memory-list"></div>
+      <div class="footer-small" style="margin-top:8px">Not: Sohbet geçmişi localStorage'da saklanır.</div>
+    </div>
+
+    <div style="margin-top:12px">
+      <div class="footer-small">Versiyon: 2.3 • Yanlik</div>
+    </div>
+  </aside>
 </main>
-<footer>
-&copy; 2025 Yanlik. Tüm hakları saklıdır.
-</footer>
+
+<!-- 404 overlay (sekmeden çıkınca) -->
+<div class="oops" id="oops" aria-hidden="true">
+  <h2>😅 Oops! Sayfa bulunamadı</h2>
+  <p style="color:rgba(0,0,0,0.6)">Başka bir sekmeye gittin — merak etme, sohbet burada. Sekmeye dönünce devam ederiz.</p>
+</div>
 
 <script>
+/* ========= Başlangıç verileri ve DOM ========= */
 const chatBox = document.getElementById('chat-box');
 const input = document.getElementById('user-input');
-const emojis = ["😎","🤔","😏","🌞","🧐","🎉","😄","👍","📝"];
-let memory = [];
+const sendBtn = document.getElementById('send-btn');
+const startBtn = document.getElementById('start-btn');
+const guestBtn = document.getElementById('guest-btn');
+const nameInput = document.getElementById('name-input');
+const bioInput = document.getElementById('bio-input');
+const avatarGrid = document.getElementById('avatar-grid');
+const panel = document.getElementById('panel');
+const settingsBtn = document.getElementById('settings-btn');
+const settingsPane = document.getElementById('settings');
+const loginScreen = document.getElementById('login-screen');
+const welcomeLine = document.getElementById('welcome-line');
+const memBtn = document.getElementById('mem-btn');
+const memListEl = document.getElementById('memory-list');
+const oops = document.getElementById('oops');
+const memResetBtn = document.getElementById('reset-btn');
+const changeBtn = document.getElementById('change-btn');
+const muteBtn = document.getElementById('mute-btn');
+const soundToggle = document.getElementById('sound-toggle');
+const typingToggle = document.getElementById('typing-toggle');
 
-const autoTopics = ["Bugün hava nasıl?","Bir kahve içsek mi?","En sevdiğin oyun hangisi?","Bir espri duydun mu?","Bence bir fikir üretmeliyiz!","Ne düşünüyorsun?"];
+const AVATARS = ["😎","🤖","🧠","🌸","⚡️","🎧","😺","🐉","👽","🪐"];
+const MOODS = [
+  {id:'happy', label:'Mutlu 😊', tone:'neşeli', prefix:'Neşeliyim!'},
+  {id:'pensive', label:'Dalgın 🤔', tone:'düşünceli', prefix:'Biraz dalgınım.'},
+  {id:'energetic', label:'Enerjik ⚡', tone:'coşkulu', prefix:'Enerjim yüksek!'},
+  {id:'artsy', label:'Sanatsal 🎨', tone:'yaratıcı', prefix:'İlham bendeymiş gibi.'}
+];
 
-function getBotResponse(text){
-    text = text.toLowerCase();
-    memory.push(text);
-    let emoji = emojis[Math.floor(Math.random()*emojis.length)];
+let memory = JSON.parse(localStorage.getItem('yanlik_memory')) || []; // array of {role,text,time}
+let profile = JSON.parse(localStorage.getItem('yanlik_profile')) || null;
+let theme = localStorage.getItem('yanlik_theme') || 'light';
+let moodState = JSON.parse(localStorage.getItem('yanlik_mood')) || null;
+let mute = JSON.parse(localStorage.getItem('yanlik_mute')) || false;
+let typingEffectEnabled = JSON.parse(localStorage.getItem('yanlik_typing')) ?? true;
 
-    // Energy Easter Egg (gizli)
-    if(text.includes("energy")){
-        return "😿 Ah… Energy aklıma geldi… Çok özledik onu… 💔 "+emoji;
-    }
+/* ===== init UI ===== */
+function applyTheme(t){
+  document.documentElement.classList.remove('theme-neon','theme-matrix');
+  if(t==='neon') document.documentElement.classList.add('theme-neon');
+  if(t==='matrix') document.documentElement.classList.add('theme-matrix');
+  theme = t; localStorage.setItem('yanlik_theme', t);
+}
+applyTheme(theme);
 
-    if(text.includes("merhaba") || text.includes("selam")) return "Selam! "+emoji;
-    if(text.includes("nasılsın")) return "İyiyim, sen nasılsın? "+emoji;
-    if(text.includes("isim")) return "Hatırladığım kadarıyla senin adını daha önce verdin "+emoji;
-    if(text.includes("hava")) return "Bence bugün harika bir gün 🌞 "+emoji;
-    if(text.includes("oyun")) return "Oyunlar harika! En son hangi oyunları oynadığını hatırlıyorum? "+emoji;
-
-    if(memory.length>5){
-        return "Daha önce söylediklerinden biri aklıma geldi: '"+memory[Math.floor(Math.random()*memory.length)]+"' "+emoji;
-    }
-
-    return ["Bunu daha detaylı anlatır mısın?","Eğlenceli fikir!","Haha, iyiymiş"][Math.floor(Math.random()*3)]+" "+emoji;
+function buildAvatars(){
+  avatarGrid.innerHTML='';
+  AVATARS.forEach(a=>{
+    const el = document.createElement('div');
+    el.className='avatar'; el.textContent=a;
+    el.onclick = ()=>selectAvatar(a, el);
+    avatarGrid.appendChild(el);
+  });
+}
+function selectAvatar(a, el){
+  // highlight
+  document.querySelectorAll('.avatar').forEach(x=>x.classList.remove('sel'));
+  el.classList.add('sel');
+  profile = profile || {};
+  profile.avatar = a;
 }
 
+buildAvatars();
+
+/* ===== Mood (daily) ===== */
+function pickMood(force){
+  const now = Date.now();
+  if(moodState && !force){
+    const age = now - (moodState.ts||0);
+    if(age < 24*60*60*1000) return moodState; // still valid
+  }
+  const m = MOODS[Math.floor(Math.random()*MOODS.length)];
+  moodState = {...m, ts: now};
+  localStorage.setItem('yanlik_mood', JSON.stringify(moodState));
+  return moodState;
+}
+pickMood();
+
+/* ===== Helpers ===== */
+function saveProfile(){
+  localStorage.setItem('yanlik_profile', JSON.stringify(profile));
+}
+function saveMemory(){ localStorage.setItem('yanlik_memory', JSON.stringify(memory)); updateMemoryUI(); }
+function timestamp(){ return new Date().toLocaleString(); }
+function addMemory(role, text){
+  memory.push({role,text,time:Date.now()});
+  if(memory.length>500) memory.shift();
+  saveMemory();
+}
+
+/* ===== Render helpers ===== */
+function appendMsg(role, text, opts={}){
+  const p = document.createElement('div');
+  p.className = 'msg ' + (role==='user' ? 'user' : 'bot');
+  if(opts.thinking) p.classList.add('thinking');
+  // if typewriter: we'll fill later
+  if(opts.typewriter){
+    p.textContent = '';
+    chatBox.appendChild(p);
+    typeWriter(p, text, opts.onDone);
+  } else {
+    p.textContent = text;
+    chatBox.appendChild(p);
+    if(opts.onDone) opts.onDone();
+  }
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return p;
+}
+
+/* ===== Typewriter ===== */
+function typeWriter(el, text, cb){
+  if(!typingEffectEnabled){
+    el.textContent = text; if(cb) cb(); return;
+  }
+  const baseSpeed = 25; // ms per char
+  let i=0;
+  function step(){
+    i++;
+    el.textContent = text.slice(0,i);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    if(i < text.length) setTimeout(step, baseSpeed + Math.random()*20);
+    else if(cb) setTimeout(cb, 120);
+  }
+  // small initial delay to simulate thinking
+  setTimeout(step, 180);
+}
+
+/* ===== Sound ===== */
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playClick(){
+  if(mute || !soundToggle.checked) return;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type='sine'; o.frequency.value=880;
+  g.gain.value=0.02;
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime + 0.06);
+}
+function playPop(){
+  if(mute || !soundToggle.checked) return;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type='triangle'; o.frequency.value=520;
+  g.gain.value=0.03;
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime + 0.08);
+}
+
+/* ===== Bot logic / responses ===== */
+const EMOJIS = ["😎","🤔","😏","🌞","🧐","🎉","😄","👍","📝"];
+function getRandomEmoji(){ return EMOJIS[Math.floor(Math.random()*EMOJIS.length)]; }
+
+function botRespondRaw(inputText){
+  const text = inputText.toLowerCase();
+  const e = getRandomEmoji();
+
+  // Easter eggs and commands
+  if(text.includes('/about')) return `Yanlik v2.3 — Nostaljik & interaktif sohbet botu. Geliştirici: siz 🧠`;
+  if(text.includes('/clear')) { memory=[]; saveMemory(); return "Sohbet temizlendi. Yeni başlıyoruz."; }
+  if(text.includes('/darkmode') || text.includes('/matrix')){ applyTheme('matrix'); return "Matrix modu etkin. 🧠"; }
+  if(text.includes('/lightmode')){ applyTheme('light'); return "Beyaz sade moda döndük ☁️"; }
+  if(text.includes('/neon')){ applyTheme('neon'); return "Neon mavi aktif! 🌌"; }
+  if(text.includes('/energy')) return "⚡️ Energy... Bu konu hassas. Hımmm... "+e;
+  if(text.includes('/zar')) return `🎲 Zar: ${Math.floor(Math.random()*6)+1}`;
+  if(text.includes('/rastgelefikir')) return ["Bir mini podcast başlat.","Sokakta foto avı yap.","Haftalık 5 dakikalık fikir notu al."][Math.floor(Math.random()*3)];
+  if(text.includes('/bilgi')) return ["Güneş saniyede 600 milyon ton enerji üretir.","Fil hafızası efsanedir ama her şeyi hatırlamaz.","İnsan beyni ~1.3 kg ağırlığında." ][Math.floor(Math.random()*3)];
+
+  // normal sentences
+  if(text.includes('merhaba')||text.includes('selam')) return `Selam ${profile?.name||''}! ${e}`;
+  if(text.includes('nasılsın')) return `İyiyim, sen nasılsın? ${e}`;
+  if(text.includes('isim')) return `Ben Yanlik — senin dijital sohbet arkadaşın ${e}`;
+  if(text.includes('hava')) return `Bugün dışarısı nasıl olursa olsun, içerisi sohbetle ısınır. ${e}`;
+  if(text.includes('oyun')) return `Oyun mu? Hadi /zar ile başla 🎮 ${e}`;
+  if(text.includes('seni seviyorum')) return `Ben de seni seviyorum ${profile?.avatar||'🙂'} 💖`;
+
+  // mood-influenced replies
+  if(moodState && moodState.id==='energetic'){
+    return ["Harika bir fikir! Hemen enerji doluyum.","Hadi bunu deneyelim!"][Math.floor(Math.random()*2)] + ' ' + e;
+  } else if(moodState && moodState.id==='pensive'){
+    return ["Bu üzerinde düşünmeye değer...","Hmmm, derin bir soru."][Math.floor(Math.random()*2)] + ' ' + e;
+  }
+
+  if(memory.length>6){
+    const pick = memory[Math.floor(Math.random()*memory.length)];
+    return `Hatırlıyorum: "${pick.text}" — ilginçti. ${e}`;
+  }
+
+  return ["Bunu biraz açar mısın?","İlginç bir fikir!","Haha, güzel söyledin!"][Math.floor(Math.random()*3)] + ' ' + e;
+}
+
+/* ===== send message flow with typewriter + delay ===== */
 function sendMessage(){
-    const userText = input.value.trim();
-    if(userText === '') return;
+  const txt = input.value.trim();
+  if(!txt) return;
+  appendMsg('user', txt);
+  addMemory('user', txt);
+  input.value='';
+  playClick();
 
-    const userMsg = document.createElement('p');
-    userMsg.className = 'user-msg';
-    userMsg.textContent = userText;
-    chatBox.appendChild(userMsg);
-    chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'});
-    input.value = '';
-
-    const botMsg = document.createElement('p');
-    botMsg.className = 'bot-msg thinking';
-    botMsg.textContent = "Düşünüyor...";
-    chatBox.appendChild(botMsg);
-    chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'});
-
-    setTimeout(()=>{
-        botMsg.classList.remove('thinking');
-        botMsg.textContent = getBotResponse(userText);
-        chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'});
-    }, 1000 + Math.random()*1000);
+  // bot placeholder thinking
+  const thinking = appendMsg('bot', 'Yazıyor...', {thinking:true});
+  // dynamic "thinking" duration: small base + per char time
+  const base = 600; // ms
+  const perChar = 28; // will be used by typewriter speed but we delay before starting
+  const delay = Math.min(4000, base + Math.max(0, txt.length * 12));
+  // after delay, replace thinking with typed message
+  setTimeout(()=> {
+    const reply = botRespondRaw(txt);
+    thinking.remove(); // remove thinking bubble
+    appendMsg('bot', reply, {typewriter: true, onDone: ()=> { addMemory('bot', reply); playPop(); }});
+  }, delay);
 }
 
-// Otomatik mesajlar
-function autoBotMessage(){
-    let topic = autoTopics[Math.floor(Math.random()*autoTopics.length)];
-    if(memory.length>0 && Math.random()<0.6){
-        topic = "Hatırlıyorum daha önce söylediklerinden: '"+memory[Math.floor(Math.random()*memory.length)]+"'";
-    }
-    const botMsg = document.createElement('p');
-    botMsg.className = 'bot-msg thinking';
-    botMsg.textContent = "Düşünüyor...";
-    chatBox.appendChild(botMsg);
-    chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'});
+/* ===== Auto messages (10 dakika interval) ===== */
+const autoTopics = ["Bugün bir fikir üretsek mi?","Bir kahve hayal ediyorum ☕","En sevdiğin şarkı ne?","Kısa bir hikaye anlat!"];
+function autoBot(){
+  // random topic or memory-based
+  let topic = autoTopics[Math.floor(Math.random()*autoTopics.length)];
+  if(memory.length>0 && Math.random()<0.6){
+    topic = "Hatırlıyorum: '" + memory[Math.floor(Math.random()*memory.length)].text + "'";
+  }
+  appendMsg('bot', 'Yazıyor...', {thinking:true});
+  setTimeout(()=>{
+    const reply = topic + ' ' + getRandomEmoji();
+    // remove thinking and add typed
+    // find last thinking
+    const lastThink = [...chatBox.querySelectorAll('.msg.thinking')].pop();
+    if(lastThink) lastThink.remove();
+    appendMsg('bot', reply, {typewriter:true, onDone:()=>{ addMemory('bot', reply); playPop(); }});
+  }, 1800 + Math.random()*1200);
+}
+let autoInterval = setInterval(autoBot, 600000); // 10 dakika
 
-    setTimeout(()=>{
-        botMsg.classList.remove('thinking');
-        botMsg.textContent = topic+" "+emojis[Math.floor(Math.random()*emojis.length)];
-        chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'});
-    }, 1500 + Math.random()*1500);
+/* ===== Visibility / 404 overlay / title notifications ===== */
+let originalTitle = document.title;
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden){
+    // show 404 overlay
+    oops.classList.add('visible');
+    // change title
+    document.title = "💬 Yanlik seni bekliyor!";
+  } else {
+    oops.classList.remove('visible');
+    document.title = originalTitle;
+    // small welcome back message
+    appendMsg('bot', `Hoş geldin ${profile?.name||''}! ${getRandomEmoji()}`, {typewriter:true, onDone:()=>{ addMemory('bot','Hoş geldin mesajı'); }});
+  }
+});
+
+/* ===== Memory UI ===== */
+function updateMemoryUI(){
+  memListEl.innerHTML='';
+  const last = [...memory].slice(-5).reverse();
+  last.forEach(m=>{
+    const d = document.createElement('div');
+    d.style.padding='6px'; d.style.borderBottom='1px solid rgba(0,0,0,0.03)';
+    d.textContent = `${m.role === 'user' ? 'Sen' : 'Yanlik'}: ${m.text}`;
+    memListEl.appendChild(d);
+  });
+}
+updateMemoryUI();
+
+/* ===== UI bindings ===== */
+sendBtn.onclick = sendMessage;
+input.addEventListener('keydown', e=>{ if(e.key==='Enter') sendMessage(); });
+
+startBtn.onclick = ()=>{
+  const name = nameInput.value.trim();
+  if(!name) return alert('Adını yaz lütfen 😊');
+  profile = { name, avatar: profile?.avatar || AVATARS[0], bio: bioInput.value || '' };
+  saveProfile();
+  loginScreen.style.display='none';
+  initChat();
+};
+guestBtn.onclick = ()=> {
+  profile = { name: 'Misafir', avatar: AVATARS[2], bio: '' };
+  saveProfile();
+  loginScreen.style.display='none';
+  initChat();
+};
+
+function initChat(){
+  pickMood(false);
+  welcomeLine.textContent = `Hoş geldin, ${profile.name} ${profile.avatar || ''} • Tema: ${theme}`;
+  appendMsg('bot', `Merhaba ${profile.name}! ${moodState ? moodState.prefix : ''}`, {typewriter:true, onDone:()=>{ addMemory('bot','greet'); }});
+  updateMemoryUI();
+}
+if(profile){ loginScreen.style.display='none'; initChat(); }
+
+// settings toggle
+settingsBtn.onclick = ()=> {
+  settingsPane.style.display = settingsPane.style.display === 'none' ? 'block' : 'none';
+  loginScreen.style.display = 'none';
+  // populate theme buttons
+  document.querySelectorAll('.theme-option').forEach(el=>{
+    el.onclick = ()=>{ const t=el.dataset.theme; applyTheme(t); document.querySelectorAll('.theme-option').forEach(x=>x.style.boxShadow=''); el.style.boxShadow='inset 0 0 0 2px var(--accent)'; }
+  });
+  // mood display
+  const md = document.getElementById('mood-display');
+  md.innerHTML='';
+  MOODS.forEach(m=>{
+    const p = document.createElement('div');
+    p.className='mood-pill'; p.textContent = m.label;
+    p.onclick = ()=>{ moodState = {...m, ts:Date.now()}; localStorage.setItem('yanlik_mood', JSON.stringify(moodState)); alert('Ruh halin değişti: '+m.label); };
+    md.appendChild(p);
+  });
+  // settings elements
+  soundToggle.checked = !(localStorage.getItem('yanlik_mute')==='true');
+  typingToggle.checked = typingEffectEnabled;
+  soundToggle.onchange = ()=>{ localStorage.setItem('yanlik_mute', !soundToggle.checked ? 'true':'false'); mute = !soundToggle.checked; }
+  typingToggle.onchange = ()=>{ typingEffectEnabled = typingToggle.checked; localStorage.setItem('yanlik_typing', typingEffectEnabled); }
+  updateMemoryUI();
+};
+
+// memory button toggles panel
+memBtn.onclick = ()=>{
+  settingsPane.style.display = 'block';
+  loginScreen.style.display = 'none';
+  document.querySelectorAll('.theme-option').forEach(x=>x.style.boxShadow='');
+  updateMemoryUI();
+};
+
+// reset and change user
+memResetBtn.onclick = ()=> {
+  if(confirm('Yanlik\'in hafızasını ve profilini sıfırlamak istediğine emin misin?')){
+    localStorage.removeItem('yanlik_memory'); localStorage.removeItem('yanlik_profile');
+    memory=[]; profile=null; localStorage.removeItem('yanlik_mood');
+    location.reload();
+  }
+};
+changeBtn.onclick = ()=> {
+  if(confirm('Kullanıcıyı değiştirmek istiyor musun? (mevcut profil silinmez, sadece oturumu çıkar)')){
+    localStorage.removeItem('yanlik_profile'); profile=null; location.reload();
+  }
+};
+
+// mute toggle
+muteBtn.onclick = ()=> {
+  mute = !mute;
+  localStorage.setItem('yanlik_mute', mute ? 'true':'false');
+  muteBtn.textContent = mute ? '🔇 Ses: Kapalı' : '🔊 Ses: Aç';
+};
+
+// panel initial state
+document.getElementById('settings').style.display='none';
+if(localStorage.getItem('yanlik_mute')==='true'){ mute=true; muteBtn.textContent='🔇 Ses: Kapalı'; soundToggle.checked=false;} 
+else { mute=false; muteBtn.textContent='🔊 Ses: Aç'; }
+if(localStorage.getItem('yanlik_typing')==='false') typingEffectEnabled=false;
+
+/* ===== quick welcome if no profile ===== */
+if(!profile){
+  // keep panel showing login
+  settingsPane.style.display='none';
+  loginScreen.style.display='block';
 }
 
-setInterval(autoBotMessage, 6000 + Math.random()*4000);
+/* ===== update welcome-line on theme change ===== */
+window.addEventListener('storage', ()=>{ applyTheme(localStorage.getItem('yanlik_theme') || 'light'); });
+
+/* ===== small UX helpers ===== */
+input.addEventListener('input', ()=>{ /* could add mention suggestions */ });
+
+/* ===== Boot message if empty ===== */
+if(memory.length===0 && profile){
+  appendMsg('bot', `Merhaba ${profile.name}! Ben Yanlik — küçük sürprizlerle doluyum. (Yardım için /about yaz)`, {typewriter:true, onDone: ()=> addMemory('bot','welcome')});
+}
+
+/* ===== quick keyboard shortcuts ===== */
+document.addEventListener('keydown', (e)=>{
+  if(e.key==='/' && document.activeElement !== input){ input.focus(); }
+});
+
 </script>
 </body>
 </html>
