@@ -1,54 +1,127 @@
 <!DOCTYPE html>
 <html lang="tr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>yanlik - Updated</title>
-    <!-- Harici stil dosyası -->
-    <link rel="stylesheet" href="style.css" />
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <header>
-      <h1>yanlik</h1>
-      <nav>
-        <a href="#">Ana Sayfa</a>
-        <a href="#">Özellikler</a>
-        <a href="#">İletişim</a>
-      </nav>
-    </header>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yanlik 2.1</title>
+<style>
+body { margin:0; font-family:'Arial',sans-serif; background-color:#111; color:#eee; display:flex; flex-direction:column; min-height:100vh;}
+header { background-color:#000; padding:20px; text-align:center; border-bottom:2px solid #eee;}
+header h1{margin:0; font-size:2.5em; letter-spacing:2px; color:#33ffff;}
+main{flex:1; padding:20px; text-align:center;}
+.chat-box{background-color:#222; padding:20px; margin:20px auto; max-width:600px; border-radius:10px; border:2px solid #33ffff; text-align:left; height:400px; overflow-y:auto;}
+.chat-box p{margin:5px 0; padding:10px; border-radius:12px; word-wrap:break-word; opacity:0; transform:translateY(20px); animation:fadeIn 0.5s forwards; max-width:80%;}
+@keyframes fadeIn{to{opacity:1; transform:translateY(0);}}
+.user-msg{background:linear-gradient(90deg,#4a4a4a,#555); text-align:right; color:#fff; margin-left:auto;}
+.bot-msg{background:linear-gradient(90deg,#335555,#33aaaa); color:#fff; margin-right:auto;}
+.bot-msg.thinking{font-style:italic; color:#888; background:linear-gradient(90deg,#555555,#777777);}
+input[type="text"]{width:70%; padding:10px; border-radius:8px; border:none; margin-right:10px;}
+button{padding:10px 15px; border-radius:8px; border:none; background-color:#555; color:#eee; cursor:pointer; transition:0.3s;}
+button:hover{background-color:#777;}
+.instagram-link{display:inline-block; margin-top:20px; padding:10px 20px; background-color:#222; color:#eee; text-decoration:none; border-radius:8px; transition:all 0.3s ease;}
+.instagram-link:hover{background-color:#33ffff; color:#000;}
+.oops{margin-top:50px; font-size:2em; color:#ff5555;}
+.oops p{font-size:1em; color:#ccc;}
+footer{background-color:#000; padding:20px; text-align:center; border-top:2px solid #33ffff; font-size:0.85em; color:#aaa;}
+</style>
+</head>
+<body>
+<header>
+<h1>Yanlik 2.1</h1>
+</header>
+<main>
+<div class="chat-box" id="chat-box">
+<p class="bot-msg">Merhaba! Ben Yanlik. Sana nasıl yardımcı olabilirim?</p>
+</div>
+<div>
+<input type="text" id="user-input" placeholder="Mesajını yaz...">
+<button onclick="sendMessage()">Gönder</button>
+</div>
+<a class="instagram-link" href="https://instagram.com/mirsqdmmpr.gzli" target="_blank">Instagram</a>
+<div class="oops">
+<p>Oops! Sayfa bulunamadı 😅</p>
+<p>Aradığın içerik burada yok, ama yine de keşfetmeye devam et!</p>
+</div>
+</main>
+<footer>
+&copy; 2025 Yanlik. Tüm hakları saklıdır.
+</footer>
 
-    <main>
-      <section id="features">
-        <!-- Özellik kartları buraya dinamik olarak yüklenecek -->
-      </section>
-    </main>
+<script>
+const chatBox = document.getElementById('chat-box');
+const input = document.getElementById('user-input');
+const emojis = ["😎","🤔","😏","🌞","🧐","🎉","😄","👍","📝"];
+let memory = [];
 
-    <footer>
-      <p>
-        &copy; 2025 mirsqdmm |
-        <a href="https://instagram.com/mirsqdmmpr.gzli" target="_blank"
-          >Instagram</a
-        >
-      </p>
-    </footer>
+const autoTopics = ["Bugün hava nasıl?","Bir kahve içsek mi?","En sevdiğin oyun hangisi?","Bir espri duydun mu?","Bence bir fikir üretmeliyiz!","Ne düşünüyorsun?"];
 
-    <!-- 404 Popup -->
-    <div id="popup404" class="popup">
-      <div class="popup-content">
-        <h2>404 - Sayfa Bulunamadı</h2>
-        <p>
-          Yanlış bir yere geldiniz. Ana sayfaya dönmek için butona basın.
-        </p>
-        <button onclick="closePopup()">Ana Sayfa</button>
-      </div>
-    </div>
+function getBotResponse(text){
+    text = text.toLowerCase();
+    memory.push(text);
+    let emoji = emojis[Math.floor(Math.random()*emojis.length)];
 
-    <!-- Harici JavaScript dosyası -->
-    <script src="app.js"></script>
-  </body>
+    // Energy Easter Egg (gizli)
+    if(text.includes("energy")){
+        return "😿 Ah… Energy aklıma geldi… Çok özledik onu… 💔 "+emoji;
+    }
+
+    if(text.includes("merhaba") || text.includes("selam")) return "Selam! "+emoji;
+    if(text.includes("nasılsın")) return "İyiyim, sen nasılsın? "+emoji;
+    if(text.includes("isim")) return "Hatırladığım kadarıyla senin adını daha önce verdin "+emoji;
+    if(text.includes("hava")) return "Bence bugün harika bir gün 🌞 "+emoji;
+    if(text.includes("oyun")) return "Oyunlar harika! En son hangi oyunları oynadığını hatırlıyorum? "+emoji;
+
+    if(memory.length>5){
+        return "Daha önce söylediklerinden biri aklıma geldi: '"+memory[Math.floor(Math.random()*memory.length)]+"' "+emoji;
+    }
+
+    return ["Bunu daha detaylı anlatır mısın?","Eğlenceli fikir!","Haha, iyiymiş"][Math.floor(Math.random()*3)]+" "+emoji;
+}
+
+function sendMessage(){
+    const userText = input.value.trim();
+    if(userText === '') return;
+
+    const userMsg = document.createElement('p');
+    userMsg.className = 'user-msg';
+    userMsg.textContent = userText;
+    chatBox.appendChild(userMsg);
+    chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'});
+    input.value = '';
+
+    const botMsg = document.createElement('p');
+    botMsg.className = 'bot-msg thinking';
+    botMsg.textContent = "Düşünüyor...";
+    chatBox.appendChild(botMsg);
+    chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'});
+
+    setTimeout(()=>{
+        botMsg.classList.remove('thinking');
+        botMsg.textContent = getBotResponse(userText);
+        chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'});
+    }, 1000 + Math.random()*1000);
+}
+
+// Otomatik mesajlar
+function autoBotMessage(){
+    let topic = autoTopics[Math.floor(Math.random()*autoTopics.length)];
+    if(memory.length>0 && Math.random()<0.6){
+        topic = "Hatırlıyorum daha önce söylediklerinden: '"+memory[Math.floor(Math.random()*memory.length)]+"'";
+    }
+    const botMsg = document.createElement('p');
+    botMsg.className = 'bot-msg thinking';
+    botMsg.textContent = "Düşünüyor...";
+    chatBox.appendChild(botMsg);
+    chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'});
+
+    setTimeout(()=>{
+        botMsg.classList.remove('thinking');
+        botMsg.textContent = topic+" "+emojis[Math.floor(Math.random()*emojis.length)];
+        chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'});
+    }, 1500 + Math.random()*1500);
+}
+
+setInterval(autoBotMessage, 6000 + Math.random()*4000);
+</script>
+</body>
 </html>
