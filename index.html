@@ -1,73 +1,492 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Yanlik 2.1 (Leopar)</title>
-<link rel="stylesheet" href="style.css">
+<style>
+:root{
+  --bg:#fafafa; --panel:#fff; --muted:#67707a; --accent:#0b76c9; --radius:12px;
+  --shadow: 0 12px 30px rgba(11,22,40,0.06);
+}
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+html,body{height:100%;margin:0;background:var(--bg);color:#141414}
+header{height:64px;display:flex;align-items:center;justify-content:center;position:relative;background:linear-gradient(180deg,var(--panel),#fff);border-bottom:1px solid rgba(0,0,0,0.04)}
+#menu-toggle{position:absolute;left:18px;top:14px;background:none;border:1px solid rgba(0,0,0,0.05);padding:8px;border-radius:8px;cursor:pointer}
+.brand{font-weight:700;color:var(--accent)}
+.app{display:flex;min-height:calc(100vh - 64px)}
+nav#side-menu{width:220px;background:rgba(255,255,255,0.78);backdrop-filter:blur(8px);border-right:1px solid rgba(0,0,0,0.04);padding:20px;transform:translateX(0);transition:all .28s}
+nav#side-menu.hide{transform:translateX(-110%)}
+nav#side-menu .logo{height:48px;width:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#33a6ff);display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:12px}
+nav#side-menu ul{list-style:none;padding:0;margin:0}
+nav#side-menu li{padding:10px;border-radius:8px;margin-bottom:6px;cursor:pointer;color:#111}
+nav#side-menu li:hover{background:rgba(11,118,201,0.06)}
+nav#side-menu li.active{background:linear-gradient(90deg, rgba(11,118,201,0.10), rgba(51,166,255,0.04));color:var(--accent);font-weight:600}
+
+main.content{flex:1;padding:22px;overflow:auto}
+.panel{max-width:1100px;margin:0 auto;background:transparent}
+.page{display:none;animation:fade .28s forwards}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.chat-wrap{display:flex;flex-direction:column;gap:10px}
+.chat-box{background:var(--panel);border-radius:12px;padding:14px;border:1px solid rgba(0,0,0,0.04);box-shadow:var(--shadow);height:56vh;overflow:auto;max-width:820px;margin:0 auto}
+.msg{display:inline-block;padding:10px 14px;border-radius:12px;margin:8px 0;max-width:78%;word-wrap:break-word;opacity:0;transform:translateY(8px);animation:pop .28s forwards}
+@keyframes pop{to{opacity:1;transform:none}}
+.msg.user{margin-left:auto;background:linear-gradient(90deg,var(--accent),#2a95d0);color:#fff}
+.msg.bot{margin-right:auto;background:#f2f7ff;color:#111;border:1px solid rgba(11,118,201,0.04)}
+.composer{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:12px}
+.composer input{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);max-width:700px}
+.composer button{padding:10px 14px;border-radius:10px;border:none;background:var(--accent);color:#fff;cursor:pointer}
+
+/* settings, theme, games */
+.grid{display:flex;flex-wrap:wrap;gap:12px}
+.card{background:var(--panel);padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.03);box-shadow:0 6px 18px rgba(5,10,20,0.03)}
+
+/* about expanded */
+.about-box{max-width:820px;margin:0 auto;background:linear-gradient(180deg,#fff,#fcfdff);padding:18px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);box-shadow:var(--shadow)}
+.about-box h3{margin:0 0 8px 0;color:var(--accent)}
+.kv{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.kv .item{min-width:200px}
+
+/* tiny utilities */
+.muted{color:var(--muted);font-size:13px}
+.btn{padding:8px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:#fff;cursor:pointer}
+.small{font-size:13px;color:var(--muted)}
+
+/* overlay 404 with glitch */
+.overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.78);backdrop-filter:blur(10px);transition:opacity .3s;z-index:110}
+.overlay.hidden{opacity:0;pointer-events:none}
+.overlay-card{background:rgba(255,255,255,0.92);border-radius:14px;padding:28px;text-align:center;border:1px solid rgba(0,0,0,0.06);box-shadow:0 14px 44px rgba(11,22,40,0.08)}
+.glitch-title{font-family:monospace;font-weight:700;margin-bottom:8px;position:relative;display:inline-block}
+.glitch-title::after{content:attr(data-text);position:absolute;left:3px;top:0;color:var(--accent);opacity:.5;animation:glitch 1.3s infinite}
+@keyframes glitch{0%,100%{transform:none}25%{transform:translate(-2px,1px)}50%{transform:translate(2px,-1px)}75%{transform:translate(-1px,1px)}}
+.yanlik-face{font-size:30px;margin:12px 0}
+.blink{animation:blink .8s steps(2,start) infinite}
+@keyframes blink{to{visibility:hidden}}
+
+/* responsive */
+@media(max-width:900px){
+  nav#side-menu{position:fixed;left:-260px;top:64px;bottom:0;z-index:120;padding-top:18px}
+  nav#side-menu.show{left:0}
+  #menu-toggle{left:12px}
+}
+</style>
 </head>
 <body>
 <header>
-  <button id="menu-toggle">☰</button>
-  <h1>Yanlik 2.1 <span>(Leopar)</span></h1>
+  <button id="menu-toggle" aria-label="Menüyü aç">☰</button>
+  <div class="brand">Yanlik 2.1 <small style="font-weight:400">Leopar</small></div>
 </header>
 
-<nav id="side-menu" class="hidden">
-  <ul>
-    <li data-page="chat">💬 Sohbet</li>
-    <li data-page="settings">⚙️ Ayarlar</li>
-    <li data-page="theme">🎨 Tema</li>
-    <li data-page="energy">⚡ Energy</li>
-    <li data-page="about">ℹ️ Hakkında</li>
-  </ul>
-</nav>
+<div class="app" role="application">
+  <nav id="side-menu" aria-label="Ana menü">
+    <div class="logo">Y</div>
+    <ul>
+      <li data-page="chat" class="active">💬 Sohbet</li>
+      <li data-page="settings">⚙️ Ayarlar</li>
+      <li data-page="theme">🎨 Tema</li>
+      <li data-page="games">🎮 Oyunlar</li>
+      <li data-page="energy">⚡ Energy</li>
+      <li data-page="about">ℹ️ Hakkında</li>
+    </ul>
+    <div style="margin-top:16px;font-size:13px;color:var(--muted)">v2.1 • Leopar</div>
+  </nav>
 
-<main id="content">
-  <section id="chat" class="page active">
-    <div class="chat-box" id="chat-box">
-      <p class="bot-msg">Merhaba! Ben Yanlik. Sana nasıl yardımcı olabilirim?</p>
+  <main class="content">
+    <div class="panel">
+      <!-- CHAT -->
+      <section id="chat" class="page active">
+        <h2 class="small muted">Sohbet</h2>
+        <div class="chat-wrap">
+          <div id="chat-box" class="chat-box" aria-live="polite"></div>
+          <div class="composer">
+            <input id="user-input" placeholder="Mesaj yaz... (ör: merhaba /energy /tkm)" autocomplete="off">
+            <button id="send-btn">Gönder</button>
+          </div>
+          <div class="small muted" style="text-align:center">Yanlik cevapları gecikmeli (ayarlarla değişir). Energy kelimesini dene.</div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="settings" class="page">
+        <h2 class="small muted">Ayarlar</h2>
+        <div class="grid">
+          <div class="card">
+            <label>Mesaj gecikmesi: <span id="delay-value">5</span> sn</label>
+            <input id="delay-range" type="range" min="1" max="12" value="5">
+            <div class="small muted">Bot cevap gecikmesini ayarlar.</div>
+          </div>
+          <div class="card">
+            <label>Otomatik mesaj aralığı (dk): <input id="auto-mins" type="number" min="0" value="10" style="width:70px"></label>
+            <div class="small muted">0 = kapalı</div>
+          </div>
+          <div class="card">
+            <label><input type="checkbox" id="toggle-type" checked> Yazma efekti (typewriter)</label><br>
+            <label><input type="checkbox" id="toggle-sound"> Ses efektleri</label>
+            <div style="margin-top:8px"><button id="reset-memory" class="btn">Sohbet hafızasını sıfırla</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- THEME -->
+      <section id="theme" class="page">
+        <h2 class="small muted">Tema</h2>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" data-theme="light">☁️ Açık</button>
+          <button class="btn" data-theme="dark">🌙 Koyu</button>
+          <button class="btn" data-theme="neon">🌌 Neon</button>
+        </div>
+        <div class="small muted" style="margin-top:10px">Tema seçimi kaydedilir.</div>
+      </section>
+
+      <!-- GAMES -->
+      <section id="games" class="page">
+        <h2 class="small muted">Oyunlar</h2>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" id="dice-btn">🎲 Zar</button>
+          <button class="btn" id="tkm-btn">✂️ Taş-Kağıt-Makas</button>
+          <button class="btn" id="quiz-btn">❓ Quiz</button>
+        </div>
+        <div id="game-out" class="small muted" style="margin-top:12px"></div>
+      </section>
+
+      <!-- ENERGY -->
+      <section id="energy" class="page">
+        <h2 class="small muted">Energy — Easter Egg</h2>
+        <p class="small muted">Energy, Yanlik için özel: bazı komutlarla kısa hikâye bölümleri açılır.</p>
+        <div><button id="energy-btn" class="btn">Küçük sürpriz</button></div>
+        <div id="energy-out" style="margin-top:10px"></div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="page">
+        <h2 class="small muted">Hakkında</h2>
+        <div class="about-box">
+          <h3>🤖 Yanlik 2.1 — (Kod Adı: Leopar)</h3>
+          <p>Minimal tasarım. Gerçekçi diyalog. Duygusal zekâ.</p>
+          <p><em>Ben Yanlik — konuşmaları hatırlayan, hisleri taklit eden küçük bir yapay zekâyım. Sohbet ettiğimizde sadece kelimeleri değil, <strong>enerjini</strong> de analiz ederim ⚡</em></p>
+
+          <div class="kv">
+            <div class="item small"><strong>Çekirdek:</strong><br>YanlikCore v2.1</div>
+            <div class="item small"><strong>Hafıza:</strong><br>Short-term Dynamic Memory</div>
+            <div class="item small"><strong>Duygu Katmanı:</strong><br>Energy Response Protocol</div>
+            <div class="item small"><strong>Tema Motoru:</strong><br>Spectra UI Engine</div>
+            <div class="item small"><strong>Geliştirici:</strong><br><strong>mirsqdmmdevs</strong></div>
+            <div class="item small"><strong>Yayın:</strong><br>Vercel</div>
+          </div>
+
+          <p style="margin-top:12px" class="small muted">Misyon: Gerçek bir arkadaş gibi dinlemek. Slogan: “Bazen sadece biri seni dinlemelidir.”</p>
+
+          <div style="margin-top:12px">
+            <button id="erp-btn" class="btn">Energy Response Protocol — Göster</button>
+          </div>
+          <div id="erp-out" style="margin-top:10px" class="small muted"></div>
+        </div>
+      </section>
     </div>
-    <div class="chat-input">
-      <input id="user-input" type="text" placeholder="Mesajını yaz...">
-      <button id="send-btn">Gönder</button>
-    </div>
-  </section>
+  </main>
+</div>
 
-  <section id="settings" class="page">
-    <h2>Ayarlar</h2>
-    <p>Efektleri ve gecikme süresini buradan yönetebilirsin.</p>
-  </section>
-
-  <section id="theme" class="page">
-    <h2>Tema</h2>
-    <p>Yakında tema seçenekleri eklenecek 🎨</p>
-  </section>
-
-  <section id="energy" class="page">
-    <h2>Energy</h2>
-    <p>“Energy”... O hâlâ bizimle mi? 💔</p>
-  </section>
-
-  <section id="about" class="page">
-    <h2>Hakkında</h2>
-    <p>Yanlik 2.1 (Leopar) — Minimal, interaktif AI sohbet deneyimi.</p>
-  </section>
-</main>
-
-<!-- 404 Overlay -->
-<div id="overlay-404" class="overlay hidden">
-  <div class="overlay-card futuristic">
+<!-- overlay 404 -->
+<div id="overlay-404" class="overlay hidden" role="dialog" aria-hidden="true">
+  <div class="overlay-card">
     <div class="glitch-title" data-text="[Yanlik-404]">[Yanlik-404]</div>
-    <p class="muted">Kayıp bağlantı tespit edildi.<br>Protokol: <span class="accent">Leopar</span></p>
-    <div class="yanlik-face">🤖<span class="blink">_</span></div>
-    <button id="overlay-close" class="btn back-btn">&lt;&lt; Sohbete geri dön</button>
+    <p class="muted">Kayıp bağlantı tespit edildi.<br>Protokol: <span style="color:var(--accent)">Leopar</span></p>
+    <div class="yanlik-face">🤖 <span class="blink">_</span></div>
+    <div style="margin-top:12px"><button id="overlay-close" class="btn"><< Sohbete geri dön</button></div>
   </div>
 </div>
 
-<footer>© 2023 Yanlik 2.1 (Leopar)</footer>
+<footer style="text-align:center;padding:12px;color:var(--muted)">© 2025 Yanlik 2.1 (Leopar) — mirsqdmmdevs</footer>
 
-<script src="app.js"></script>
-<script src="chat.js"></script>
-<script src="easter.js"></script>
+<script>
+/* ------------------ Core UI: menu + tabs + theme persistence ------------------ */
+const menuToggle = document.getElementById('menu-toggle');
+const side = document.getElementById('side-menu');
+menuToggle.addEventListener('click', ()=> {
+  if(window.innerWidth <= 900) side.classList.toggle('show'); else side.classList.toggle('hide');
+});
+document.querySelectorAll('#side-menu li').forEach(li=>{
+  li.addEventListener('click', ()=>{
+    document.querySelectorAll('#side-menu li').forEach(x=> x.classList.remove('active'));
+    li.classList.add('active');
+    const p = li.dataset.page;
+    document.querySelectorAll('.page').forEach(pg=> pg.classList.remove('active'));
+    document.getElementById(p).classList.add('active');
+    if(window.innerWidth <= 900) side.classList.remove('show');
+  });
+});
+
+// theme
+document.querySelectorAll('[data-theme]').forEach(b=>{
+  b.addEventListener('click', ()=> {
+    const t = b.dataset.theme;
+    if(t === 'dark'){
+      document.documentElement.style.setProperty('--bg','#0f1720');
+      document.documentElement.style.setProperty('--panel','#0b1220');
+      document.documentElement.style.setProperty('--muted','#9aa6b2');
+      document.documentElement.style.setProperty('--accent','#4db8ff');
+      document.documentElement.style.setProperty('color','#e6eef6');
+    } else if(t === 'neon'){
+      document.documentElement.style.setProperty('--bg','#05060b');
+      document.documentElement.style.setProperty('--panel','#071127');
+      document.documentElement.style.setProperty('--muted','#98f0ff');
+      document.documentElement.style.setProperty('--accent','#33f0ff');
+      document.documentElement.style.setProperty('color','#e6fbff');
+    } else {
+      // light
+      document.documentElement.style.removeProperty('--bg'); document.documentElement.style.removeProperty('--panel');
+      document.documentElement.style.removeProperty('--muted'); document.documentElement.style.removeProperty('--accent');
+      document.documentElement.style.removeProperty('color');
+    }
+    localStorage.setItem('yanlik_theme', t);
+  });
+}
+// restore theme
+const savedTheme = localStorage.getItem('yanlik_theme');
+if(savedTheme){
+  const btn = document.querySelector('[data-theme="'+savedTheme+'"]');
+  btn?.click();
+}
+
+/* ------------------ Chat core: memory, typewriter, delays, commands ------------------ */
+const chatBox = document.getElementById('chat-box');
+const input = document.getElementById('user-input');
+const sendBtn = document.getElementById('send-btn');
+
+let memory = JSON.parse(localStorage.getItem('yanlik_memory')) || [];
+let cfg = {
+  delaySec: parseInt(localStorage.getItem('yanlik_delay')) || 5,
+  autoMins: parseInt(localStorage.getItem('yanlik_auto')) || 10,
+  typewrite: JSON.parse(localStorage.getItem('yanlik_type') || 'true'),
+  sound: JSON.parse(localStorage.getItem('yanlik_sound') || 'false')
+};
+
+// helper: append message
+function appendMsg(role, text, {typewrite=false} = {}){
+  const el = document.createElement('div');
+  el.className = 'msg ' + (role==='user' ? 'user' : 'bot');
+  if(typewrite && cfg.typewrite){
+    el.textContent = '';
+    chatBox.appendChild(el);
+    typeWriter(el, text);
+  } else { el.textContent = text; chatBox.appendChild(el); }
+  chatBox.scrollTop = chatBox.scrollHeight;
+  memory.push({role,text,t:Date.now()});
+  if(memory.length > 500) memory.shift();
+  localStorage.setItem('yanlik_memory', JSON.stringify(memory));
+}
+
+// typewriter
+function typeWriter(el, text){
+  let i=0; const speed = 18;
+  function step(){ i++; el.textContent = text.slice(0,i); chatBox.scrollTop = chatBox.scrollHeight; if(i<text.length) setTimeout(step, speed + Math.random()*10); }
+  setTimeout(step, 120);
+}
+
+// bot logic (expanded)
+const emojis = ["😎","🤔","🧠","💫","🎯","😏","💭","⚡️"];
+function botReplyFor(msg){
+  const t = msg.toLowerCase();
+  if(t.includes('/help')) return "Komutlar: /energy, /tkm, /zar, /quiz, /rapor";
+  if(t.includes('energy')) return "⚡️ Energy... Bu kelime bana bir şeyler fısıldıyor. Bir sır var.";
+  if(t.includes('merhaba')||t.includes('selam')) return "Selam! Ben Yanlik — neler konuşalım?";
+  if(t.includes('nasılsın')) return "İyiyim, teşekkürler! Sen nasılsın?";
+  if(t.includes('kahve')) return "Bir kahve iyi fikir ☕ Hangi türü seversin?";
+  if(t.includes('müzik')) return "Müzik ruhun rengi gibidir. Hangi türden hoşlanırsın?";
+  if(memory.length > 6 && Math.random() < 0.35) {
+    // recall something memory-like
+    const pick = memory.slice(-8).filter(m=>m.role==='user').map(m=>m.text).filter(Boolean);
+    if(pick.length) return "Geçen söylediklerinden: \"" + pick[Math.floor(Math.random()*pick.length)] + "\" — hatırlıyorum. " + emojis[Math.floor(Math.random()*emojis.length)];
+  }
+  // default
+  return ["Bunu biraz açar mısın?","İlginç bir fikir!","Haha, devam et."][Math.floor(Math.random()*3)] + " " + emojis[Math.floor(Math.random()*emojis.length)];
+}
+
+// send flow
+function sendMessage(){
+  const txt = input.value.trim(); if(!txt) return;
+  appendMsg('user', txt);
+  input.value = '';
+  // thinking bubble
+  const thinking = document.createElement('div'); thinking.className = 'msg bot'; thinking.textContent = 'Yanlik yazıyor...'; thinking.style.fontStyle='italic';
+  chatBox.appendChild(thinking); chatBox.scrollTop = chatBox.scrollHeight;
+  const delay = Math.min(15000, cfg.delaySec*1000 + Math.min(3000, txt.length*15));
+  setTimeout(()=> {
+    thinking.remove();
+    // commands
+    if(txt.startsWith('/tkm')) { handleTKM(txt); return; }
+    if(txt.startsWith('/zar')) { appendMsg('bot', '🎲 '+(Math.floor(Math.random()*6)+1)); return; }
+    if(txt.startsWith('/rapor')) { appendMsg('bot', generateReport()); return; }
+    if(txt.startsWith('/quiz')){ startQuiz(); return; }
+    // normal reply
+    const r = botReplyFor(txt);
+    appendMsg('bot', r, {typewrite:true});
+    if(cfg.sound) playPop();
+  }, delay);
+}
+
+sendBtn.addEventListener('click', sendMessage);
+input.addEventListener('keydown', e=> { if(e.key==='Enter') sendMessage(); });
+
+// restore previous memory to view (not re-saving)
+if(memory.length === 0){
+  setTimeout(()=> appendMsg('bot','Merhaba! Ben Yanlik 2.1 (Leopar) — konuşmaya başla.', {typewrite:true}), 700);
+} else {
+  memory.slice(-40).forEach(m=> { const el = document.createElement('div'); el.className='msg '+m.role; el.textContent = m.text; chatBox.appendChild(el); });
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+/* --------------- games: tkm, quiz, rapor --------------- */
+function handleTKM(txt){
+  // format: /tkm taş OR /tkm
+  const parts = txt.split(/\s+/);
+  let user = parts[1] ? parts[1].toLowerCase() : prompt('Taş / Kağıt / Makas (yazı ile)')?.toLowerCase();
+  if(!user) { appendMsg('bot','Oyun iptal edildi.'); return; }
+  const arr = ['taş','kağıt','makas'];
+  if(!arr.includes(user)){ appendMsg('bot','Geçersiz seçim.'); return; }
+  const cpu = arr[Math.floor(Math.random()*3)];
+  let res = 'Berabere';
+  if((user==='taş'&&cpu==='makas')||(user==='makas'&&cpu==='kağıt')||(user==='kağıt'&&cpu==='taş')) res='Kazandın 🎉'; else if(user!==cpu) res='Kaybettin 😅';
+  appendMsg('bot', `Sen: ${user} — Bot: ${cpu} → ${res}`);
+}
+
+let quizActive = false, quizIndex = 0;
+const quizBank = [
+  {q:"Türkiye'nin başkenti neresidir?", a:"ankara"},
+  {q:"Dünya'nın uydusu nedir?", a:"ay"},
+  {q:"HTML açılımı nedir?", a:"hypertext"}
+];
+function startQuiz(){
+  quizActive = true; quizIndex = 0; appendMsg('bot','Quiz başlıyor — cevaplamak için yaz.', {typewrite:true});
+  setTimeout(()=> askQuiz(),900);
+}
+function askQuiz(){ if(quizIndex>=quizBank.length){ appendMsg('bot','Quiz bitti!'); quizActive = false; return; } appendMsg('bot', 'Soru: '+quizBank[quizIndex].q, {typewrite:true}); }
+function handleQuizAnswer(ans){
+  if(!quizActive) return;
+  const correct = quizBank[quizIndex].a.toLowerCase();
+  if(ans.toLowerCase().includes(correct)) appendMsg('bot','Doğru! ✅'); else appendMsg('bot','Yanlış. Doğru: '+correct);
+  quizIndex++; if(quizIndex<quizBank.length) setTimeout(()=> askQuiz(),700); else { quizActive=false; appendMsg('bot','Quiz tamam!'); }
+}
+
+// hook user messages into quiz flow
+const originalSend = sendMessage;
+function clientSendTextDirect(text){
+  // helper to simulate send
+  input.value = text; sendMessage();
+}
+(function interceptInput(){
+  const old = sendBtn.onclick;
+  // keep simple: handle by watching memory push in sendMessage -> detect quizActive
+})();
+
+// listen global user messages to process quiz answers
+const obs = new MutationObserver(()=>{ /* not needed here */});
+obs.observe(chatBox, {childList:true});
+
+/* generate report */
+function generateReport(){
+  const msgs = memory.length;
+  const users = memory.filter(m=>m.role==='user').length;
+  const bots = memory.filter(m=>m.role==='bot').length;
+  const words = {};
+  memory.forEach(m=> (m.text||'').split(/\s+/).forEach(w=>{ w=w.toLowerCase().replace(/\W/g,''); if(w.length>3) words[w]=(words[w]||0)+1}));
+  const top = Object.entries(words).sort((a,b)=>b[1]-a[1])[0]?.[0] || '—';
+  return `Rapor: toplam ${msgs} mesaj (sen ${users}, Yanlik ${bots}). En sık kelime: "${top}"`;
+}
+
+/* when user sends normal messages we also check if quiz active */
+const originalAdd = appendMsg;
+(function hookForQuiz(){
+  // wrap appendMsg to check newly added user messages for quiz
+  const oldAppend = appendMsg;
+  window.appendMsg = function(role, text, opts){ oldAppend(role,text,opts); if(role==='user' && quizActive) handleQuizAnswer(text); };
+})();
+
+/* --------------- settings controls --------------- */
+const delayRange = document.getElementById('delay-range');
+const delayValue = document.getElementById('delay-value');
+const autoMins = document.getElementById('auto-mins');
+const toggleType = document.getElementById('toggle-type');
+const toggleSound = document.getElementById('toggle-sound');
+const resetMemoryBtn = document.getElementById('reset-memory');
+
+delayRange.value = cfg.delaySec; delayValue.textContent = cfg.delaySec;
+autoMins.value = cfg.autoMins;
+toggleType.checked = cfg.typewrite;
+toggleSound.checked = cfg.sound;
+
+delayRange.addEventListener('input', ()=> { cfg.delaySec = parseInt(delayRange.value); delayValue.textContent = cfg.delaySec; localStorage.setItem('yanlik_delay', cfg.delaySec); });
+autoMins.addEventListener('change', ()=> { cfg.autoMins = parseInt(autoMins.value) || 0; localStorage.setItem('yanlik_auto', cfg.autoMins); restartAuto(); });
+toggleType.addEventListener('change', ()=> { cfg.typewrite = toggleType.checked; localStorage.setItem('yanlik_type', cfg.typewrite); });
+toggleSound.addEventListener('change', ()=> { cfg.sound = toggleSound.checked; localStorage.setItem('yanlik_sound', cfg.sound); });
+resetMemoryBtn.addEventListener('click', ()=> { if(confirm('Hafızayı sıfırla?')){ localStorage.removeItem('yanlik_memory'); memory=[]; chatBox.innerHTML=''; appendMsg('bot','Hafıza sıfırlandı.'); } });
+
+/* auto messages */
+let autoTimer = null;
+function restartAuto(){
+  if(autoTimer) clearInterval(autoTimer);
+  if(cfg.autoMins && cfg.autoMins>0) autoTimer = setInterval(()=> { appendMsg('bot',['Kısa bir düşünce istersin?','Yeni bir fikir denemek ister misin?'][Math.floor(Math.random()*2)], {typewrite:true}); }, cfg.autoMins*60*1000);
+}
+restartAuto();
+
+/* --------------- simple sound (pop) --------------- */
+function playPop(){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = ctx.createOscillator(); const g = ctx.createGain();
+    o.type='sine'; o.frequency.value=600; g.gain.value=0.02;
+    o.connect(g); g.connect(ctx.destination); o.start(); o.stop(ctx.currentTime+0.06);
+  }catch(e){}
+}
+
+/* --------------- game UI hooks --------------- */
+document.getElementById('dice-btn').addEventListener('click', ()=> appendMsg('bot','🎲 '+(Math.floor(Math.random()*6)+1)));
+document.getElementById('tkm-btn').addEventListener('click', ()=> { const pick = prompt('Taş, Kağıt, Makas?')||''; handleTKM('/tkm '+pick); });
+document.getElementById('quiz-btn').addEventListener('click', ()=> startQuiz());
+
+/* --------------- Energy easter --------------- */
+document.getElementById('energy-btn').addEventListener('click', ()=>{
+  const out = document.getElementById('energy-out');
+  out.innerHTML = '<div class="small muted">Energy protokolü uyarlandı... bir an için sessizlik.</div>';
+  setTimeout(()=> out.innerHTML = '<strong>Energy</strong> — Bir sır saklı: “Bazen sessizlik en yüksek sestir.”',900);
+});
+
+/* --------------- about ERP demo --------------- */
+document.getElementById('erp-btn').addEventListener('click', ()=> {
+  const el = document.getElementById('erp-out');
+  el.textContent = 'ERP aktif: duygusal ağırlık 0.73; hafıza bağlı.';
+  setTimeout(()=> { el.textContent += ' (gizli parıltı)'; },600);
+});
+
+/* --------------- overlay glitch 404 --------------- */
+const overlay = document.getElementById('overlay-404');
+const overlayClose = document.getElementById('overlay-close');
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden){
+    overlay.classList.remove('hidden');
+    overlay.style.opacity = '1';
+    document.title = '💬 Yanlik seni bekliyor...';
+  } else {
+    setTimeout(()=> { overlay.classList.add('hidden'); }, 400);
+    document.title = 'Yanlik 2.1 (Leopar)';
+  }
+});
+overlayClose.addEventListener('click', ()=> overlay.classList.add('hidden'));
+
+/* --------------- basic keyboard shortcuts --------------- */
+document.addEventListener('keydown', (e)=>{
+  if(e.key === '1') document.querySelector('[data-page="chat"]').click();
+  if(e.key === '2') document.querySelector('[data-page="settings"]').click();
+  if(e.key === '3') document.querySelector('[data-page="theme"]').click();
+  if(e.key === '4') document.querySelector('[data-page="games"]').click();
+  if(e.key === '5') document.querySelector('[data-page="energy"]').click();
+  if(e.key === '6') document.querySelector('[data-page="about"]').click();
+});
+
+/* --------------- small niceties: show last saved name (developer) --------------- */
+console.log('Yanlik 2.1 (Leopar) — mirsqdmmdevs');
+</script>
 </body>
 </html>
