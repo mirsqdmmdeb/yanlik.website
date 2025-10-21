@@ -131,7 +131,22 @@
     <div id="dev-output" class="card" style="height:220px;overflow:auto;margin-top:8px;font-family:monospace;font-size:13px"></div>
     <div style="margin-top:8px"><input id="dev-input" placeholder="komut gir (ör: system:stats | clear memory | theme neon)" style="width:70%"><button id="dev-run" class="btn tiny">Çalıştır</button></div>
   </div>
+<!-- Sohbet girişi -->
+<div class="input-area">
+  <input type="text" id="user-input" placeholder="Mesaj yaz..." />
+  <button id="send-btn">Gönder</button>
 </div>
+
+<script type="module">
+  import './main.js';
+  
+  // Enter tuşuna basınca da mesaj göndersin:
+  document.getElementById('user-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') window.sendMessage();
+  });
+  
+  document.getElementById('send-btn').addEventListener('click', window.sendMessage);
+</script>
 
 <footer class="footer">© 2025 Yanlik 2.1 (Leopar) — mirsqdmmdevs</footer>
 
