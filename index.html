@@ -1,84 +1,73 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yanlik 2.1 (Leopar)</title>
-<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="topbar">
+<header>
   <button id="menu-toggle">☰</button>
   <h1>Yanlik 2.1 <span>(Leopar)</span></h1>
 </header>
 
-<div class="app">
-  <aside id="sidebar">
-    <div class="brand">🦁 Leopar</div>
-    <nav>
-      <button data-tab="chat">💬 Sohbet</button>
-      <button data-tab="settings">⚙️ Ayarlar</button>
-      <button data-tab="theme">🎨 Tema</button>
-      <button data-tab="games">🎮 Oyunlar</button>
-      <button data-tab="energy">⚡ Energy</button>
-      <button data-tab="about">ℹ️ Hakkında</button>
-    </nav>
-    <footer>v2.1 Leopar — YanlikOS</footer>
-  </aside>
+<nav id="side-menu" class="hidden">
+  <ul>
+    <li data-page="chat">💬 Sohbet</li>
+    <li data-page="settings">⚙️ Ayarlar</li>
+    <li data-page="theme">🎨 Tema</li>
+    <li data-page="energy">⚡ Energy</li>
+    <li data-page="about">ℹ️ Hakkında</li>
+  </ul>
+</nav>
 
-  <main id="content">
-    <section id="chat" class="tab active">
-      <h2>Yanlik Sohbet</h2>
-      <div id="chat-window" class="chat-window"></div>
-      <div class="composer">
-        <input id="user-input" placeholder="Mesajını yaz..." />
-        <button id="send-btn">Gönder</button>
-      </div>
-    </section>
+<main id="content">
+  <section id="chat" class="page active">
+    <div class="chat-box" id="chat-box">
+      <p class="bot-msg">Merhaba! Ben Yanlik. Sana nasıl yardımcı olabilirim?</p>
+    </div>
+    <div class="chat-input">
+      <input id="user-input" type="text" placeholder="Mesajını yaz...">
+      <button id="send-btn">Gönder</button>
+    </div>
+  </section>
 
-    <section id="settings" class="tab">
-      <h2>Ayarlar</h2>
-      <div class="settings">
-        <label><input type="checkbox" id="sound-toggle" checked /> Ses efektleri</label>
-        <label><input type="checkbox" id="auto-msg" /> Otomatik mesajlar</label>
-        <label><input type="checkbox" id="slow-mode" /> Yavaş mod (10sn gecikme)</label>
-      </div>
-    </section>
+  <section id="settings" class="page">
+    <h2>Ayarlar</h2>
+    <p>Efektleri ve gecikme süresini buradan yönetebilirsin.</p>
+  </section>
 
-    <section id="theme" class="tab">
-      <h2>Tema Ayarları</h2>
-      <button class="theme-btn" data-theme="light">☁️ Beyaz</button>
-      <button class="theme-btn" data-theme="dark">🌑 Koyu</button>
-      <button class="theme-btn" data-theme="neon">🌌 Neon</button>
-    </section>
+  <section id="theme" class="page">
+    <h2>Tema</h2>
+    <p>Yakında tema seçenekleri eklenecek 🎨</p>
+  </section>
 
-    <section id="games" class="tab">
-      <h2>Oyunlar</h2>
-      <button id="roll-dice">🎲 Zar At</button>
-      <button id="tkm">✂️ Taş-Kağıt-Makas</button>
-      <button id="quiz">❓ Mini Quiz</button>
-      <div id="game-result"></div>
-    </section>
+  <section id="energy" class="page">
+    <h2>Energy</h2>
+    <p>“Energy”... O hâlâ bizimle mi? 💔</p>
+  </section>
 
-    <section id="energy" class="tab">
-      <h2>Energy ⚡</h2>
-      <p>Energy hakkında gizli bilgiler burada... Sadece özel kelimelerle açılır.</p>
-      <div id="energy-box"></div>
-    </section>
+  <section id="about" class="page">
+    <h2>Hakkında</h2>
+    <p>Yanlik 2.1 (Leopar) — Minimal, interaktif AI sohbet deneyimi.</p>
+  </section>
+</main>
 
-    <section id="about" class="tab">
-      <h2>Hakkında</h2>
-      <p><strong>Yanlik 2.1 (Leopar)</strong> — modern, sade ve nostaljik bir yapay zekâ sohbet sistemi.</p>
-      <p>Versiyon: 2.1 — Kod Adı: <b>Leopar 🐆</b></p>
-    </section>
-  </main>
+<!-- 404 Overlay -->
+<div id="overlay-404" class="overlay hidden">
+  <div class="overlay-card futuristic">
+    <div class="glitch-title" data-text="[Yanlik-404]">[Yanlik-404]</div>
+    <p class="muted">Kayıp bağlantı tespit edildi.<br>Protokol: <span class="accent">Leopar</span></p>
+    <div class="yanlik-face">🤖<span class="blink">_</span></div>
+    <button id="overlay-close" class="btn back-btn">&lt;&lt; Sohbete geri dön</button>
+  </div>
 </div>
 
-<!-- JS bağlantıları -->
-<script src="js/app.js"></script>
-<script src="js/chat.js"></script>
-<script src="js/games.js"></script>
-<script src="js/settings.js"></script>
-<script src="js/easter.js"></script>
+<footer>© 2023 Yanlik 2.1 (Leopar)</footer>
+
+<script src="app.js"></script>
+<script src="chat.js"></script>
+<script src="easter.js"></script>
 </body>
 </html>
