@@ -1,175 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Yanlik 2.4 — Genişletilmiş</title>
-<style>
-  :root{--bg:#fff;--text:#222;--accent:#0077cc;--bot:#e8eef6;--user:#0077cc}
-  .theme-neon{--bg:#03061a;--text:#e6fbff;--accent:#33f0ff;--bot:#081223;--user:#33f0ff}
-  .theme-matrix{--bg:#04120b;--text:#a8f0a8;--accent:#39ff14;--bot:#062413;--user:#39ff14}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
-  header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.06)}
-  header h1{margin:0;color:var(--accent)}
-  .controls{display:flex;gap:8px;align-items:center}
-  .btn{background:var(--accent);color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer}
-  main{display:flex;gap:14px;padding:14px;align-items:flex-start;justify-content:center;flex:1}
-  .col-chat{width:100%;max-width:820px;display:flex;flex-direction:column;gap:10px}
-  .chat-box{background:linear-gradient(180deg,rgba(0,0,0,0.02),transparent);padding:14px;border-radius:12px;border:1px solid rgba(0,0,0,0.05);height:64vh;overflow:auto}
-  .msg{display:inline-block;padding:10px 12px;border-radius:12px;margin:8px 0;opacity:0;transform:translateY(8px);animation:fadeIn .3s forwards;max-width:78%}
-  .msg.user{background:var(--user);color:#fff;margin-left:auto}
-  .msg.bot{background:var(--bot);color:var(--text);margin-right:auto}
-  @keyframes fadeIn{to{opacity:1;transform:none}}
-  .composer{display:flex;gap:8px;align-items:center}
-  input[type="text"]{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);outline:none}
-  .panel{width:320px;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:linear-gradient(180deg,rgba(0,0,0,0.02),transparent);height:64vh;overflow:auto}
-  .section{margin-bottom:12px}
-  .small{font-size:13px;color:rgba(0,0,0,0.6)}
-  .oops{position:fixed;inset:0;background:rgba(255,255,255,0.97);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:2000;transition:opacity .3s;opacity:0;pointer-events:none}
-  .oops.visible{opacity:1;pointer-events:all}
-  .kbd{background:#f0f0f0;padding:4px 7px;border-radius:6px;font-family:monospace}
-  .score-list{padding:6px;background:rgba(0,0,0,0.02);border-radius:8px}
-  .micro{padding:6px 8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent}
-  @media(max-width:920px){main{flex-direction:column;padding:8px}.panel{width:100%}}
-</style>
+<title>Yanlik 2.1 (Leopar)</title>
+<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-<header>
-  <h1>Yanlik 2.4</h1>
-  <div class="controls">
-    <button class="btn" id="mem-btn">🧠 Hafıza</button>
-    <button class="btn" id="settings-btn">⚙️ Ayarlar</button>
-  </div>
+<header class="topbar">
+  <button id="menu-toggle">☰</button>
+  <h1>Yanlik 2.1 <span>(Leopar)</span></h1>
 </header>
 
-<main>
-  <section class="col-chat">
-    <div class="chat-box" id="chat-box" aria-live="polite"></div>
-
-    <div class="composer">
-      <input id="user-input" placeholder="Mesajını yaz... (komutlar: /tkm /zar /hikaye /günlük ...)" autocomplete="off">
-      <button class="btn" id="send-btn">Gönder</button>
-      <button class="btn" id="mic-btn">🎤</button>
-      <button class="btn" id="tts-btn">🔊</button>
-    </div>
-
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
-      <div class="small" id="welcome-line">Giriş yapılmadı.</div>
-      <div style="display:flex;gap:8px">
-        <button class="btn" id="reset-btn">🧹 Hafızayı Sıfırla</button>
-        <button class="btn" id="change-btn">🔁 Kullanıcı Değiştir</button>
-      </div>
-    </div>
-  </section>
-
-  <aside class="panel">
-    <div id="login-screen" class="section">
-      <h3>Profil</h3>
-      <label>Ad</label><br>
-      <input id="name-input" placeholder="Adın..." style="width:100%;padding:8px;margin:6px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
-      <label>Avatar (emoji)</label>
-      <div id="avatar-grid" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px"></div>
-      <label style="margin-top:8px">Bio</label>
-      <input id="bio-input" placeholder="Kısa..." style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
-      <div style="display:flex;gap:8px;margin-top:8px">
-        <button class="btn" id="start-btn">Başla</button>
-        <button class="btn" id="guest-btn" style="background:#666">Misafir</button>
-      </div>
-    </div>
-
-    <div id="settings" style="display:none">
-      <div class="section">
-        <h3>Tema</h3>
-        <div style="display:flex;gap:8px">
-          <button class="micro" data-theme="light">☁️ Beyaz</button>
-          <button class="micro" data-theme="neon">🌌 Neon</button>
-          <button class="micro" data-theme="matrix">🧠 Matrix</button>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>Ruh Hali</h3>
-        <div id="mood-display" class="small"></div>
-        <button class="micro" id="mood-reroll">Yenile</button>
-      </div>
-
-      <div class="section">
-        <h3>Ses & Yazma</h3>
-        <div style="display:flex;gap:8px;align-items:center">
-          <label><input type="checkbox" id="sound-toggle" checked> Ses</label>
-          <label><input type="checkbox" id="typing-toggle" checked> Yazma efekti</label>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>Oyun Puanları</h3>
-        <div class="score-list" id="score-list"></div>
-      </div>
-    </div>
-
-    <div class="section small">Versiyon: 2.4 • Yanlik — Daha fazlası için komut yaz veya panele bak.</div>
+<div class="app">
+  <aside id="sidebar">
+    <div class="brand">🦁 Leopar</div>
+    <nav>
+      <button data-tab="chat">💬 Sohbet</button>
+      <button data-tab="settings">⚙️ Ayarlar</button>
+      <button data-tab="theme">🎨 Tema</button>
+      <button data-tab="games">🎮 Oyunlar</button>
+      <button data-tab="energy">⚡ Energy</button>
+      <button data-tab="about">ℹ️ Hakkında</button>
+    </nav>
+    <footer>v2.1 Leopar — YanlikOS</footer>
   </aside>
-</main>
 
-<div class="oops" id="oops"><h2>😅 Oops! Sayfa bulunamadı</h2><p class="small">Sekmeye gittin — geri dönünce devam ediyoruz.</p></div>
+  <main id="content">
+    <section id="chat" class="tab active">
+      <h2>Yanlik Sohbet</h2>
+      <div id="chat-window" class="chat-window"></div>
+      <div class="composer">
+        <input id="user-input" placeholder="Mesajını yaz..." />
+        <button id="send-btn">Gönder</button>
+      </div>
+    </section>
 
-<script>
-/* ---------- Veri & DOM ---------- */
-const chatBox = document.getElementById('chat-box');
-const input = document.getElementById('user-input');
-const sendBtn = document.getElementById('send-btn');
-const micBtn = document.getElementById('mic-btn');
-const ttsBtn = document.getElementById('tts-btn');
-const startBtn = document.getElementById('start-btn');
-const guestBtn = document.getElementById('guest-btn');
-const nameInput = document.getElementById('name-input');
-const bioInput = document.getElementById('bio-input');
-const avatarGrid = document.getElementById('avatar-grid');
-const settingsBtn = document.getElementById('settings-btn');
-const settingsPane = document.getElementById('settings');
-const loginScreen = document.getElementById('login-screen');
-const welcomeLine = document.getElementById('welcome-line');
-const memBtn = document.getElementById('mem-btn');
-const scoreListEl = document.getElementById('score-list');
-const oops = document.getElementById('oops');
-const moodDisplay = document.getElementById('mood-display');
-const moodRerollBtn = document.getElementById('mood-reroll');
+    <section id="settings" class="tab">
+      <h2>Ayarlar</h2>
+      <div class="settings">
+        <label><input type="checkbox" id="sound-toggle" checked /> Ses efektleri</label>
+        <label><input type="checkbox" id="auto-msg" /> Otomatik mesajlar</label>
+        <label><input type="checkbox" id="slow-mode" /> Yavaş mod (10sn gecikme)</label>
+      </div>
+    </section>
 
-const AVATARS = ["😎","🤖","🧠","🌸","⚡️","🎧","😺","🐉","👽","🪐"];
-const MOODS = [
-  {id:'happy', label:'Mutlu 😊', prefix:'Neşeliyim bugün!'},
-  {id:'pensive', label:'Dalgın 🤔', prefix:'Biraz düşünceliyim.'},
-  {id:'energetic', label:'Enerjik ⚡', prefix:'Enerjim yüksek!'},
-  {id:'artsy', label:'Sanatsal 🎨', prefix:'İlham doluyum.'}
-];
+    <section id="theme" class="tab">
+      <h2>Tema Ayarları</h2>
+      <button class="theme-btn" data-theme="light">☁️ Beyaz</button>
+      <button class="theme-btn" data-theme="dark">🌑 Koyu</button>
+      <button class="theme-btn" data-theme="neon">🌌 Neon</button>
+    </section>
 
-/* localStorage verileri */
-let memory = JSON.parse(localStorage.getItem('yanlik_memory')) || []; // {role,text,time}
-let profile = JSON.parse(localStorage.getItem('yanlik_profile')) || null;
-let theme = localStorage.getItem('yanlik_theme') || 'light';
-let moodState = JSON.parse(localStorage.getItem('yanlik_mood')) || null;
-let mute = localStorage.getItem('yanlik_mute')==='true';
-let typingEffect = localStorage.getItem('yanlik_typing')!=='false';
-let scores = JSON.parse(localStorage.getItem('yanlik_scores')) || {tkm:0,player:0,bot:0};
-let dailyNotes = JSON.parse(localStorage.getItem('yanlik_daily')) || {}; // dateStr: note
-let quizBank = [
-  {q:"Türkiye'nin başkenti neresidir?", a:"ankara"},
-  {q:"Dünya'nın uydusu nedir?", a:"ay"},
-  {q:"HTML açılımı nedir?", a:"hypertext markup language"}
-];
+    <section id="games" class="tab">
+      <h2>Oyunlar</h2>
+      <button id="roll-dice">🎲 Zar At</button>
+      <button id="tkm">✂️ Taş-Kağıt-Makas</button>
+      <button id="quiz">❓ Mini Quiz</button>
+      <div id="game-result"></div>
+    </section>
 
-/* ---------- Temel UI & Tema ---------- */
-function applyTheme(t){
-  document.documentElement.classList.remove('theme-neon','theme-matrix');
-  if(t==='neon') document.documentElement.classList.add('theme-neon');
-  if(t==='matrix') document.documentElement.classList.add('theme-matrix');
-  theme = t; localStorage.setItem('yanlik_theme', t);
-}
-applyTheme(theme);
+    <section id="energy" class="tab">
+      <h2>Energy ⚡</h2>
+      <p>Energy hakkında gizli bilgiler burada... Sadece özel kelimelerle açılır.</p>
+      <div id="energy-box"></div>
+    </section>
 
-function buildAvatarGrid(){
-  avatarGrid.innerHTML='';
-  AVATARS.forEach(a=>{
-    const el = document.createElement('div'); el.textContent=a; el.style.cursor='pointer'; el.style.padding='8px';
-    el.onclick=()=>{ profile = profile
+    <section id="about" class="tab">
+      <h2>Hakkında</h2>
+      <p><strong>Yanlik 2.1 (Leopar)</strong> — modern, sade ve nostaljik bir yapay zekâ sohbet sistemi.</p>
+      <p>Versiyon: 2.1 — Kod Adı: <b>Leopar 🐆</b></p>
+    </section>
+  </main>
+</div>
+
+<!-- JS bağlantıları -->
+<script src="js/app.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/games.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/easter.js"></script>
+</body>
+</html>
