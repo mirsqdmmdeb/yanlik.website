@@ -1,41 +1,34 @@
-const chatWin = document.getElementById("chat-window");
-const userInput = document.getElementById("user-input");
-const sendBtn = document.getElementById("send-btn");
-let memory = [];
+const chatBox = document.getElementById('chat-box');
+const sendBtn = document.getElementById('send-btn');
+const input = document.getElementById('user-input');
+const memory = [];
+const emojis = ["😎","🤔","🧠","💫","🎯","😏","💭"];
 
-function appendMsg(role, text) {
-  const p = document.createElement("p");
-  p.className = `msg ${role}`;
-  p.textContent = text;
-  chatWin.appendChild(p);
-  chatWin.scrollTop = chatWin.scrollHeight;
+function botReply(msg){
+  let text = msg.toLowerCase();
+  if(text.includes("energy")) return "😿 Ah... Energy... Unutmadım onu 💔";
+  if(text.includes("merhaba")) return "Selam! Nasılsın? 😄";
+  if(text.includes("nasılsın")) return "İyiyim, sen nasılsın? 🤖";
+  if(memory.length>5) return "Bana daha önce '"+memory[Math.floor(Math.random()*memory.length)]+"' demiştin 😏";
+  return ["Hmm...","İlginç...","Devam et anlat 🎧"][Math.floor(Math.random()*3)];
 }
 
-function botResponse(text) {
-  const t = text.toLowerCase();
-  if (t.includes("energy")) return "😿 Energy... Onu kimse unutmuyor...";
-  if (t.includes("merhaba")) return "Selam! Nasılsın?";
-  if (t.includes("oyun")) return "🎮 Oyun sekmesine bak!";
-  if (t.includes("hava")) return "☀️ Güzel bir gün, değil mi?";
-  return ["Hmm...","İlginç dedin.","Devam et."][Math.floor(Math.random()*3)];
-}
+sendBtn.onclick = ()=>{
+  const text = input.value.trim();
+  if(!text) return;
+  const userMsg = document.createElement('p');
+  userMsg.className='user-msg'; userMsg.textContent=text;
+  chatBox.appendChild(userMsg); input.value=''; chatBox.scrollTo({top:chatBox.scrollHeight,behavior:'smooth'});
+  memory.push(text);
+  const botMsg = document.createElement('p'); botMsg.className='bot-msg'; botMsg.textContent="Yanlik yazıyor...";
+  chatBox.appendChild(botMsg);
+  setTimeout(()=>{botMsg.textContent=botReply(text)+" "+emojis[Math.floor(Math.random()*emojis.length)];
+  chatBox.scrollTo({top:chatBox.scrollHeight,behavior:'smooth'});},1000+Math.random()*1000);
+};
 
-function sendMsg() {
-  const txt = userInput.value.trim();
-  if (!txt) return;
-  appendMsg("user", txt);
-  userInput.value = "";
-  const botThinking = document.createElement("p");
-  botThinking.className = "msg bot";
-  botThinking.textContent = "Yazıyor...";
-  chatWin.appendChild(botThinking);
-  setTimeout(() => {
-    botThinking.remove();
-    appendMsg("bot", botResponse(txt));
-  }, 5000);
-}
-
-sendBtn.addEventListener("click", sendMsg);
-userInput.addEventListener("keydown", (e) => e.key === "Enter" && sendMsg());
-
-appendMsg("bot", "Merhaba! Ben Yanlik 2.1 (Leopar) 🦁");
+// 10 dk sonra otomatik tepki
+setInterval(()=>{
+  const msg = document.createElement('p');
+  msg.className='bot-msg'; msg.textContent="Hâlâ buradaysan, sessizliği sevdim. 🧘";
+  chatBox.appendChild(msg);
+},600000);
