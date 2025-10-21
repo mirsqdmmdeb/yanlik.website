@@ -1,0 +1,143 @@
+:root {
+  --bg: #fff;
+  --fg: #111;
+  --accent: #0077cc;
+  --chat-bg: #f4f4f4;
+}
+body {
+  margin: 0;
+  font-family: "Inter", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 16px;
+}
+.topbar h1 {
+  margin: 0;
+  font-size: 18px;
+}
+.app {
+  display: flex;
+  flex: 1;
+}
+aside {
+  width: 220px;
+  background: #fafafa;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+aside .brand {
+  padding: 20px;
+  font-size: 20px;
+  text-align: center;
+  background: var(--accent);
+  color: #fff;
+}
+aside nav {
+  display: flex;
+  flex-direction: column;
+}
+aside nav button {
+  background: none;
+  border: none;
+  padding: 12px;
+  text-align: left;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+aside nav button:hover {
+  background: rgba(0, 119, 204, 0.1);
+}
+aside footer {
+  margin-top: auto;
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: #777;
+}
+main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+.tab {
+  display: none;
+  animation: fadein 0.3s forwards;
+}
+.tab.active {
+  display: block;
+}
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.chat-window {
+  background: var(--chat-bg);
+  padding: 10px;
+  height: 400px;
+  overflow-y: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.msg {
+  padding: 8px 12px;
+  margin: 6px 0;
+  border-radius: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+.msg.user {
+  background: var(--accent);
+  color: #fff;
+  margin-left: auto;
+}
+.msg.bot {
+  background: #ddd;
+  color: #111;
+}
+.composer {
+  display: flex;
+  gap: 8px;
+}
+.composer input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.composer button {
+  padding: 8px 12px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.theme-btn {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  margin: 5px;
+  cursor: pointer;
+}
+[data-theme="neon"] {
+  --bg: #0d0f1a;
+  --fg: #00ffff;
+  --chat-bg: #1a1c33;
+}
+[data-theme="dark"] {
+  --bg: #181818;
+  --fg: #f1f1f1;
+  --chat-bg: #222;
+}
