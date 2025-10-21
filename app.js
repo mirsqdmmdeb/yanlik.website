@@ -1,27 +1,12 @@
-// Menü geçişleri ve sekme yönetimi
-const menuToggle = document.getElementById("menu-toggle");
-const sidebar = document.getElementById("sidebar");
-const tabs = document.querySelectorAll(".tab");
-const navBtns = document.querySelectorAll("aside nav button");
+const menuBtn = document.getElementById('menu-toggle');
+const menu = document.getElementById('side-menu');
+const pages = document.querySelectorAll('.page');
+menuBtn.onclick = ()=> menu.classList.toggle('show');
 
-menuToggle.addEventListener("click", () => {
-  sidebar.classList.toggle("open");
+document.querySelectorAll('nav li').forEach(li=>{
+  li.onclick=()=>{
+    document.querySelector('.page.active')?.classList.remove('active');
+    document.getElementById(li.dataset.page).classList.add('active');
+    menu.classList.remove('show');
+  };
 });
-
-navBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    tabs.forEach((t) => t.classList.remove("active"));
-    document.getElementById(btn.dataset.tab).classList.add("active");
-  });
-});
-
-// Tema yönetimi
-const themeBtns = document.querySelectorAll(".theme-btn");
-themeBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    document.documentElement.dataset.theme = btn.dataset.theme;
-    localStorage.setItem("theme", btn.dataset.theme);
-  });
-});
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme) document.documentElement.dataset.theme = savedTheme;
